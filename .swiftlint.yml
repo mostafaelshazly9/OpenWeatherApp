@@ -1,0 +1,18 @@
+excluded:
+  - "OpenWeatherApp/Resources/R.generated.swift"
+  - builds
+  - Pods/
+  - OpenWeatherAppTests
+  - OpenWeatherAppUITests
+
+force_unwrapping:
+  severity: error
+force_cast:
+  severity: error
+
+opt_in_rules:
+  - force_unwrapping
+
+function_body_length:
+  - 12 # warning
+  - 20 # error
