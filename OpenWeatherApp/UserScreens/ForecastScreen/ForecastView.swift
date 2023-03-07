@@ -16,7 +16,7 @@ struct ForecastView: View {
     private let roundedRectangleCornerRadius = 5.0
     private let roundedRectangleLineWidth = 1.5
 
-    @State var query = ""
+    @StateObject var viewModel = ForecastVM()
     @State var isShowingInfoPopup = false
 
     var body: some View {
@@ -47,7 +47,7 @@ extension ForecastView {
 
     var searchBar: some View {
         ZStack {
-            TextField("", text: $query, prompt: Text(R.string.localizable.searchPrompt()))
+            TextField("", text: $viewModel.query, prompt: Text(R.string.localizable.searchPrompt()))
                 .frame(height: textFieldHeight)
                 .padding(EdgeInsets(top: .zero,
                                     leading: textFieldHorizontalPadding,
@@ -81,7 +81,7 @@ extension ForecastView {
 
     var searchButton: some View {
         Button {
-            print("Search tapped")
+            viewModel.didTapSearchButton()
         } label: {
             Text(R.string.localizable.search())
                 .padding()
