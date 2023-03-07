@@ -9,6 +9,13 @@ import SwiftUI
 
 struct ForecastView: View {
 
+    private let textFieldHeight = 48.0
+    private let textFieldHorizontalPadding = 35.0
+    private let iconPadding = 8.0
+    private let searchButtonCornerRadius = 25.0
+    private let roundedRectangleCornerRadius = 5.0
+    private let roundedRectangleLineWidth = 1.5
+
     @State var query = ""
     @State var isShowingInfoPopup = false
 
@@ -17,20 +24,14 @@ struct ForecastView: View {
             searchBar
             searchButton
         }
-        .alert("Search instructions",
+        .alert(R.string.localizable.searchInstructions(),
                isPresented: $isShowingInfoPopup,
                actions: {
-            Button("OK", role: .cancel, action: {
+            Button(R.string.localizable.ok(), role: .cancel, action: {
                 print("Tapped OK")
             })
         }, message: {
-            Text("""
-You can search for your current location by tapping the map pin icon on the left, alternatively, you can search for a city, a zip code or by latitude / longitude as follows:
-
-city: london
-zip code: 12345
-lat/lon: 12,34.567
-""")
+            Text(R.string.localizable.searchInstructionsMessage())
         })
     }
 }
@@ -46,30 +47,30 @@ extension ForecastView {
 
     var searchBar: some View {
         ZStack {
-            TextField("", text: $query, prompt: Text("Enter city, zip code or lat/lon"))
-                .frame(height: 48)
-                .padding(EdgeInsets(top: 0, leading: 35, bottom: 0, trailing: 35))
+            TextField("", text: $query, prompt: Text(R.string.localizable.searchPrompt()))
+                .frame(height: textFieldHeight)
+                .padding(EdgeInsets(top: .zero, leading: textFieldHorizontalPadding, bottom: .zero, trailing: textFieldHorizontalPadding))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(lineWidth: 1.5)
+                    RoundedRectangle(cornerRadius: roundedRectangleCornerRadius)
+                        .stroke(lineWidth: roundedRectangleLineWidth)
                 )
                 .multilineTextAlignment(.center)
             HStack {
                 Button {
                     print("Tapped map")
                 } label: {
-                    Image(systemName: "mappin.and.ellipse")
+                    Image(systemName: R.string.localizable.mapIcon())
                         .imageScale(.large)
                 }
-                .padding(.leading, 8.0)
+                .padding(.leading, iconPadding)
                 Spacer()
                 Button {
                     isShowingInfoPopup = true
                 } label: {
-                    Image(systemName: "questionmark.circle.fill")
+                    Image(systemName: R.string.localizable.questionmarkIcon())
                         .imageScale(.large)
                 }
-                .padding(.trailing, 8.0)
+                .padding(.trailing, iconPadding)
             }
         }
         .padding()
@@ -79,11 +80,11 @@ extension ForecastView {
         Button {
             print("Search tapped")
         } label: {
-            Text("Search")
+            Text(R.string.localizable.search())
                 .padding()
         }
         .foregroundColor(.white)
         .background(Color.accentColor)
-        .cornerRadius(25)
+        .cornerRadius(searchButtonCornerRadius)
     }
 }
