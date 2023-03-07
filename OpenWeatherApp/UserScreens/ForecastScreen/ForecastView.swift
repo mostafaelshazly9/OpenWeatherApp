@@ -49,7 +49,10 @@ extension ForecastView {
         ZStack {
             TextField("", text: $query, prompt: Text(R.string.localizable.searchPrompt()))
                 .frame(height: textFieldHeight)
-                .padding(EdgeInsets(top: .zero, leading: textFieldHorizontalPadding, bottom: .zero, trailing: textFieldHorizontalPadding))
+                .padding(EdgeInsets(top: .zero,
+                                    leading: textFieldHorizontalPadding,
+                                    bottom: .zero,
+                                    trailing: textFieldHorizontalPadding))
                 .overlay(
                     RoundedRectangle(cornerRadius: roundedRectangleCornerRadius)
                         .stroke(lineWidth: roundedRectangleLineWidth)
