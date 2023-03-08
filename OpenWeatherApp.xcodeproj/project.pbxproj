@@ -36,6 +36,7 @@
 		F2D6F68D29B8532700C9B9F2 /* WeatherPresentableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D6F68C29B8532700C9B9F2 /* WeatherPresentableProtocol.swift */; };
 		F2D6F69029B86E6C00C9B9F2 /* CurrentWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D6F68F29B86E6C00C9B9F2 /* CurrentWeatherView.swift */; };
 		F2D6F69229B86E7400C9B9F2 /* CurrentWeatherVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D6F69129B86E7400C9B9F2 /* CurrentWeatherVM.swift */; };
+		F2D6F69629B875DF00C9B9F2 /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D6F69529B875DF00C9B9F2 /* CurrentWeather.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		F2D6F68C29B8532700C9B9F2 /* WeatherPresentableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherPresentableProtocol.swift; sourceTree = "<group>"; };
 		F2D6F68F29B86E6C00C9B9F2 /* CurrentWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherView.swift; sourceTree = "<group>"; };
 		F2D6F69129B86E7400C9B9F2 /* CurrentWeatherVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherVM.swift; sourceTree = "<group>"; };
+		F2D6F69529B875DF00C9B9F2 /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				F2D6F67829B7FC8900C9B9F2 /* Forecast.swift */,
+				F2D6F69529B875DF00C9B9F2 /* CurrentWeather.swift */,
 				F2D6F67029B7DC8100C9B9F2 /* OpenWeatherResponses.swift */,
 				F2D6F68C29B8532700C9B9F2 /* WeatherPresentableProtocol.swift */,
 			);
@@ -618,6 +621,7 @@
 				F2D6F69229B86E7400C9B9F2 /* CurrentWeatherVM.swift in Sources */,
 				F283D07229B7B34A0055DEED /* OpenWeatherAppApp.swift in Sources */,
 				F2D6F66829B7D55800C9B9F2 /* ForecastVM.swift in Sources */,
+				F2D6F69629B875DF00C9B9F2 /* CurrentWeather.swift in Sources */,
 				F2D6F67929B7FC8900C9B9F2 /* Forecast.swift in Sources */,
 				F2D6F67329B7F38200C9B9F2 /* ForecastRow.swift in Sources */,
 				F283D0A229B7C0950055DEED /* ForecastView.swift in Sources */,

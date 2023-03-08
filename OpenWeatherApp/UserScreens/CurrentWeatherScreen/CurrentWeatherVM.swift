@@ -17,7 +17,7 @@ class CurrentWeatherVM: BaseWeatherSearchVM {
         queryTask = Task {
             let query = getLatLongFromQuery()
             do {
-                let response = try await OpenWeatherService.shared.fetchWeatherForecast(lat: query.lat, lon: query.lon)  // TODO: Update
+                let response = try await OpenWeatherService.shared.fetchCurrentWeather(lat: query.lat, lon: query.lon)
                 await setForecastsFrom(response)
                 UserDefaultsService.shared.saveForecastQuery(self.query)
             } catch let error {
@@ -30,8 +30,8 @@ class CurrentWeatherVM: BaseWeatherSearchVM {
         queryTask = Task {
             let query = getZipCountryCodesFromQuery()
             do {
-                let response = try await OpenWeatherService.shared.fetchWeatherForecast(zipCode: query.zip,
-                                                                                 countryCode: query.country)  // TODO: Update
+                let response = try await OpenWeatherService.shared.fetchCurrentWeather(zipCode: query.zip,
+                                                                                 countryCode: query.country)
                 await setForecastsFrom(response)
                 UserDefaultsService.shared.saveForecastQuery(self.query)
             } catch let error {
@@ -44,7 +44,7 @@ class CurrentWeatherVM: BaseWeatherSearchVM {
         queryTask = Task {
             let city = query.replacingOccurrences(of: ", ", with: "")
             do {
-                let response = try await OpenWeatherService.shared.fetchWeatherForecast(city: city) // TODO: Update
+                let response = try await OpenWeatherService.shared.fetchCurrentWeather(city: city)
                 await setForecastsFrom(response)
                 UserDefaultsService.shared.saveForecastQuery(self.query)
             } catch let error {
