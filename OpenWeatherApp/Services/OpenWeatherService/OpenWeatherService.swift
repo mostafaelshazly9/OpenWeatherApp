@@ -12,7 +12,7 @@ class OpenWeatherService {
     /// This API key is ideally stored in a plist file that is added to .gitignore so that it won't be
     ///  shared on github. However, for the purposes of this interview, it is included here so that
     ///  it is easier to run without having to do any extra work on the reviewer's side
-    let apiKey = "eb12396ff51e38c197930742348aaa6f"
+    private let apiKey = "eb12396ff51e38c197930742348aaa6f"
 
     static let shared = OpenWeatherService()
 
