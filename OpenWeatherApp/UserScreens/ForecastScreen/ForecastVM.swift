@@ -51,7 +51,7 @@ class ForecastVM: ObservableObject {
         Task {
             let query = getLatLongFromQuery()
             do {
-                let response = try await OpenWeatherService.fetchWeatherForecast(lat: query.lat, lon: query.lon)
+                let response = try await OpenWeatherService.shared.fetchWeatherForecast(lat: query.lat, lon: query.lon)
                 await setForecastsFrom(response)
             } catch let error {
                 print(error)
@@ -84,7 +84,7 @@ class ForecastVM: ObservableObject {
         Task {
             let query = getZipCountryCodesFromQuery()
             do {
-                let response = try await OpenWeatherService.fetchWeatherForecast(zipCode: query.zip,
+                let response = try await OpenWeatherService.shared.fetchWeatherForecast(zipCode: query.zip,
                                                                                  countryCode: query.country)
                 await setForecastsFrom(response)
             } catch let error {
@@ -99,7 +99,7 @@ class ForecastVM: ObservableObject {
         Task {
             let city = query.replacingOccurrences(of: ", ", with: "")
             do {
-                let response = try await OpenWeatherService.fetchWeatherForecast(city: city)
+                let response = try await OpenWeatherService.shared.fetchWeatherForecast(city: city)
                 await setForecastsFrom(response)
             } catch let error {
                 print(error)
