@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 class CurrentWeatherVM: BaseWeatherSearchVM {
 
@@ -30,11 +31,11 @@ class CurrentWeatherVM: BaseWeatherSearchVM {
         queryTask = Task {
             let query = getLatLongFromQuery()
             do {
-                let response = try await OpenWeatherService.shared.fetchCurrentWeather(lat: query.lat,
-                                                                                       lon: query.lon,
-                                                                                       units: units)
+                let response = try await OpenWeatherService.shared.fetchCurrentWeather(
+                    lat: query.lat, lon: query.lon, units: units)
                 await setForecastsFrom(response)
                 UserDefaultsService.shared.saveQuery(self.query)
+                addCurrentWeather()
             } catch let error {
                 print(error)
             }
@@ -45,11 +46,11 @@ class CurrentWeatherVM: BaseWeatherSearchVM {
         queryTask = Task {
             let query = getZipCountryCodesFromQuery()
             do {
-                let response = try await OpenWeatherService.shared.fetchCurrentWeather(zipCode: query.zip,
-                                                                                 countryCode: query.country,
-                                                                                       units: units)
+                let response = try await OpenWeatherService.shared.fetchCurrentWeather(
+                    zipCode: query.zip, countryCode: query.country, units: units)
                 await setForecastsFrom(response)
                 UserDefaultsService.shared.saveQuery(self.query)
+                addCurrentWeather()
             } catch let error {
                 print(error)
             }
@@ -63,9 +64,17 @@ class CurrentWeatherVM: BaseWeatherSearchVM {
                 let response = try await OpenWeatherService.shared.fetchCurrentWeather(city: city, units: units)
                 await setForecastsFrom(response)
                 UserDefaultsService.shared.saveQuery(self.query)
+                addCurrentWeather()
             } catch let error {
                 print(error)
             }
         }
     }
+
+    private func addCurrentWeather() {
+        if let weather = results.first as? CurrentWeather {
+            weather.createCurrentWeatherDataObject()
+        }
+    }
+
 }

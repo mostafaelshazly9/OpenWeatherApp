@@ -36,4 +36,19 @@ struct CurrentWeather: WeatherPresentableProtocol, Identifiable {
         self.temp = response.main.temp
         self.feelsLike = response.main.feelsLike
     }
+
+    @discardableResult
+    func createCurrentWeatherDataObject() -> CurrentWeatherData {
+        let object = CurrentWeatherData(context: PersistenceController.shared.container.viewContext)
+        object.date = date
+        object.dateStored = Date()
+        object.feelsLike = feelsLike ?? 0
+        object.temp = temp ?? 0
+        object.icon = icon
+        object.isNight = isNight
+        object.title = title
+        object.weatherDescription = description
+        try? PersistenceController.shared.container.viewContext.save()
+        return object
+    }
 }
