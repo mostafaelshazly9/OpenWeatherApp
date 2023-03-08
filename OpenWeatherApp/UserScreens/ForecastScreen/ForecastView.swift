@@ -63,7 +63,7 @@ extension ForecastView {
                 .multilineTextAlignment(.center)
             HStack {
                 Button {
-                    print("Tapped map")
+                    viewModel.didTapMapPinIcon()
                 } label: {
                     Image(systemName: R.string.localizable.mapIcon())
                         .imageScale(.large)

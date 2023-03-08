@@ -26,6 +26,7 @@
 		F2D6F67329B7F38200C9B9F2 /* ForecastRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D6F67229B7F38200C9B9F2 /* ForecastRow.swift */; };
 		F2D6F67729B7F6E700C9B9F2 /* Date + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D6F67629B7F6E700C9B9F2 /* Date + Extensions.swift */; };
 		F2D6F67929B7FC8900C9B9F2 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D6F67829B7FC8900C9B9F2 /* Forecast.swift */; };
+		F2D6F67B29B81C9C00C9B9F2 /* CoreLocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D6F67A29B81C9C00C9B9F2 /* CoreLocationDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		F2D6F67229B7F38200C9B9F2 /* ForecastRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastRow.swift; sourceTree = "<group>"; };
 		F2D6F67629B7F6E700C9B9F2 /* Date + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extensions.swift"; sourceTree = "<group>"; };
 		F2D6F67829B7FC8900C9B9F2 /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
+		F2D6F67A29B81C9C00C9B9F2 /* CoreLocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +222,7 @@
 		F2D6F66B29B7D68000C9B9F2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				F2D6F67C29B81CCC00C9B9F2 /* CoreLocationService */,
 				F2D6F66C29B7D68500C9B9F2 /* OpenWeatherService */,
 			);
 			path = Services;
@@ -256,6 +259,14 @@
 				F2D6F67629B7F6E700C9B9F2 /* Date + Extensions.swift */,
 			);
 			path = Foundation;
+			sourceTree = "<group>";
+		};
+		F2D6F67C29B81CCC00C9B9F2 /* CoreLocationService */ = {
+			isa = PBXGroup;
+			children = (
+				F2D6F67A29B81C9C00C9B9F2 /* CoreLocationDelegate.swift */,
+			);
+			path = CoreLocationService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -547,6 +558,7 @@
 				F283D0A229B7C0950055DEED /* ForecastView.swift in Sources */,
 				F2D6F66629B7CEFD00C9B9F2 /* R.generated.swift in Sources */,
 				F2D6F67129B7DC8100C9B9F2 /* WeatherForecastResponse.swift in Sources */,
+				F2D6F67B29B81C9C00C9B9F2 /* CoreLocationDelegate.swift in Sources */,
 				F2D6F66E29B7D69B00C9B9F2 /* OpenWeatherService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -710,6 +722,7 @@
 				DEVELOPMENT_TEAM = 92248YS3F6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App requires location to provide weather for your location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -740,6 +753,7 @@
 				DEVELOPMENT_TEAM = 92248YS3F6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App requires location to provide weather for your location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

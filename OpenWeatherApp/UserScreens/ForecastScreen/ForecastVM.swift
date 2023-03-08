@@ -6,11 +6,15 @@
 //
 
 import Foundation
+import CoreLocation
 
 class ForecastVM: ObservableObject {
 
     @Published var query = ""
     @Published var forecasts: [Forecast] = []
+
+    private let manager = CLLocationManager()
+    private var delegate: CoreLocationDelegate?
 
     func didTapSearchButton() {
         if isValidLatLong() {
@@ -20,6 +24,25 @@ class ForecastVM: ObservableObject {
         } else {
             fetchWeatherForecastByCity()
         }
+    }
+
+    func didTapMapPinIcon() {
+        Task {
+            do {
+                let location: CLLocation = try await
+                withCheckedThrowingContinuation { [weak self] continuation in
+                    self?.delegate = CoreLocationDelegate(manager: manager, continuation: continuation)
+                }
+                await setQuery(to: "\(location.coordinate.latitude),\(location.coordinate.longitude)")
+            } catch let error {
+                print(error)
+            }
+        }
+    }
+
+    @MainActor
+    private func setQuery(to newQuery: String) {
+        query = newQuery
     }
 
     @MainActor
