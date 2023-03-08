@@ -7,6 +7,16 @@
 
 import Foundation
 
+struct CurrentWeatherResponse: Decodable {
+    let weather: [Weather]
+    let main: Main
+    let timeOfForecast: Double
+
+    private enum CodingKeys: String, CodingKey {
+        case timeOfForecast = "dt", main, weather
+    }
+}
+
 struct WeatherForecastResponse: Decodable {
     let cnt: Int
     let list: [WeatherForecastResponseList]
@@ -54,6 +64,18 @@ struct Clouds: Decodable {
 struct Main: Decodable {
     let temp, feelsLike, tempMin, tempMax: Double?
     let pressure, seaLevel, grndLevel, humidity: Double?
+
+    private enum CodingKeys: String, CodingKey {
+        case temp
+        case feelsLike = "feels_like"
+        case tempMin = "temp_min"
+        case tempMax = "temp_max"
+        case pressure
+        case seaLevel = "sea_level"
+        case grndLevel = "grnd_level"
+        case humidity
+    }
+
 }
 
 // MARK: - Rain
@@ -68,7 +90,7 @@ struct Sys: Decodable {
 
 // MARK: - Weather
 struct Weather: Decodable {
-    let main, weatherDescription, icon: String?
+    let main, description, icon: String?
 }
 
 // MARK: - Wind

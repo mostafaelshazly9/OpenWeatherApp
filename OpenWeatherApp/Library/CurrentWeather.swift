@@ -1,5 +1,5 @@
 //
-//  Forecast.swift
+//  CurrentWeather.swift
 //  OpenWeatherApp
 //
 //  Created by Mostafa Elshazly on 08/03/2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Forecast: WeatherPresentableProtocol, Identifiable {
+struct CurrentWeather: WeatherPresentableProtocol, Identifiable {
 
     var id: Double { date }
 
@@ -19,7 +19,7 @@ struct Forecast: WeatherPresentableProtocol, Identifiable {
     var temp: Double?
     var feelsLike: Double?
 
-    init(date: Double, isNight: Bool = true, title: String, description: String, icon: String) {
+    init(date: Double, isNight: Bool = false, title: String, description: String, icon: String) {
         self.date = date
         self.isNight = isNight
         self.title = title
@@ -27,11 +27,13 @@ struct Forecast: WeatherPresentableProtocol, Identifiable {
         self.icon = icon
     }
 
-    init(from response: WeatherForecastResponseList) {
+    init(from response: CurrentWeatherResponse) {
         self.date = response.timeOfForecast
-        self.isNight = response.sys?.pod == "n"
+        self.isNight = false
         self.title = response.weather.first?.main ?? ""
         self.description = response.weather.first?.description ?? ""
         self.icon = response.weather.first?.icon ?? ""
+        self.temp = response.main.temp
+        self.feelsLike = response.main.feelsLike
     }
 }

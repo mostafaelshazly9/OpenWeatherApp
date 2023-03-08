@@ -29,6 +29,7 @@ struct ForecastRow: View {
                     Text(Date(timeIntervalSince1970: forecast.date).localFromUTC() ?? "")
                     Spacer()
                     AsyncImage(url: URL(string: "https://openweathermap.org/img/w/\(forecast.icon).png"))
+                        .frame(width: 50, height: 50)
                 }
             }
             .multilineTextAlignment(.center)
