@@ -33,7 +33,7 @@ struct DashboardView: View {
                 if int == 2 {
                     ForecastView(path: $path)
                 } else if int == 3 {
-                    CurrentWeatherView()
+                    CurrentWeatherView(path: $path)
                 }
             }
         }

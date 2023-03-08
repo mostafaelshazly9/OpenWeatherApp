@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CurrentWeatherView: View {
 
+    @Binding var path: [Int]
     @StateObject var viewModel = CurrentWeatherVM()
 
     var body: some View {
@@ -19,8 +20,9 @@ struct CurrentWeatherView: View {
 }
 
 struct CurrentWeatherView_Previews: PreviewProvider {
+    @State static var path = [Int]()
     static var previews: some View {
-        CurrentWeatherView()
+        CurrentWeatherView(path: $path)
     }
 }
 
@@ -40,20 +42,26 @@ extension CurrentWeatherView {
     }
 
     var unitsButtons: some View {
-        HStack {
-            Button {
-                viewModel.didTapCelsius()
-            } label: {
-                Text("Celsius")
+        VStack {
+            Button("Go to Dashboard") {
+                path.removeLast(path.count)
             }
             .modifier(WeatherSearchButtonStyle())
+            HStack {
+                Button {
+                    viewModel.didTapCelsius()
+                } label: {
+                    Text("Celsius")
+                }
+                .modifier(WeatherSearchButtonStyle())
 
-            Button {
-                viewModel.didTapFahrenheit()
-            } label: {
-                Text("Fahrenheit")
+                Button {
+                    viewModel.didTapFahrenheit()
+                } label: {
+                    Text("Fahrenheit")
+                }
+                .modifier(WeatherSearchButtonStyle())
             }
-            .modifier(WeatherSearchButtonStyle())
         }
     }
 }

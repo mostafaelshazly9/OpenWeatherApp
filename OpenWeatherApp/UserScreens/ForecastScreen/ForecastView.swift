@@ -18,7 +18,7 @@ struct ForecastView: View {
 
     var body: some View {
         BaseWeatherSearchView<ForecastVM, AnyView>(viewModel: viewModel, upper: {
-            AnyView(Button("Pop to Root View") {
+            AnyView(Button("Go to Dashboard") {
                 path.removeLast(path.count)
             }
                 .modifier(WeatherSearchButtonStyle())
