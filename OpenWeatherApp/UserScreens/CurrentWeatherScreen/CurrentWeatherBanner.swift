@@ -20,7 +20,7 @@ struct CurrentWeatherBanner: View {
                     .frame(width: 50, height: 50)
             }
             Spacer()
-            Text(currentWeather.description)
+            Text(currentWeather.weatherDescription)
             Spacer()
             HStack {
                 Text("Temperature:")
@@ -40,10 +40,13 @@ struct CurrentWeatherBanner: View {
 
 struct CurrentWeatherBanner_Previews: PreviewProvider {
     static var previews: some View {
-        CurrentWeatherBanner(currentWeather: CurrentWeather(date: 1647766800,
-                                                            isNight: true,
-                                                            title: "Clouds",
-                                                            description: "scattered clouds",
-                                                            icon: "03d"), unit: "°C")
+        CurrentWeatherBanner(currentWeather: CurrentWeather(
+            date: 1647766800,
+            isNight: true,
+            title: "Clouds",
+            description: "scattered clouds",
+            icon: "03d",
+            temp: 50,
+            feelsLike: 55), unit: "°C")
     }
 }

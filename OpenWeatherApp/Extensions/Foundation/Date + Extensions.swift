@@ -22,4 +22,22 @@ extension Date {
         }
         return nil
     }
+
+    struct SubtractionDate {
+        var month: Int?
+        var day: Int?
+        var hour: Int?
+        var minute: Int?
+        var second: Int?
+    }
+
+    static func - (recent: Date, previous: Date) -> SubtractionDate {
+        let day = Calendar.current.dateComponents([.day], from: previous, to: recent).day
+        let month = Calendar.current.dateComponents([.month], from: previous, to: recent).month
+        let hour = Calendar.current.dateComponents([.hour], from: previous, to: recent).hour
+        let minute = Calendar.current.dateComponents([.minute], from: previous, to: recent).minute
+        let second = Calendar.current.dateComponents([.second], from: previous, to: recent).second
+
+        return SubtractionDate(month: month, day: day, hour: hour, minute: minute, second: second)
+    }
 }

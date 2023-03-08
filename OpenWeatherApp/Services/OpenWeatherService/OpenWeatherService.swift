@@ -22,6 +22,8 @@ class OpenWeatherService {
     enum OpenWeatherError: Error {
         case invalidURL
         case missingData
+        case decodingError
+        case unknownError
     }
 
     // MARK: Weather Forecast

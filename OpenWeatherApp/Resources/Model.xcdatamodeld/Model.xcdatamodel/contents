@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22D68" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CurrentWeatherData" representedClassName=".CurrentWeatherData" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="dateStored" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="feelsLike" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="icon" optional="YES" attributeType="String"/>
+        <attribute name="isNight" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="query" optional="YES" attributeType="String"/>
+        <attribute name="temp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="weatherDescription" optional="YES" attributeType="String"/>
+    </entity>
+</model>

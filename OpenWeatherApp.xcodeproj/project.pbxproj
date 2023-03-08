@@ -11,6 +11,12 @@
 		1FABC6F5A494B2ED9CD72ADA /* Pods_OpenWeatherApp_OpenWeatherAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 823EA91CA5F491DEF7B5A3FA /* Pods_OpenWeatherApp_OpenWeatherAppUITests.framework */; };
 		572057CA24551F37DA79B587 /* Pods_OpenWeatherAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2731140D3A9E95F881DB2BDB /* Pods_OpenWeatherAppTests.framework */; };
 		F24BAA9129B893D100F2CEDD /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24BAA9029B893D100F2CEDD /* DashboardView.swift */; };
+		F24BAAD129B8C05700F2CEDD /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24BAAD029B8C05700F2CEDD /* Persistence.swift */; };
+		F24BAAD429B8C10700F2CEDD /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F24BAAD229B8C10700F2CEDD /* Model.xcdatamodeld */; };
+		F2624D1829B8E0BF004C2AFA /* CurrentWeatherData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2624D1629B8E0BF004C2AFA /* CurrentWeatherData+CoreDataClass.swift */; };
+		F2624D1929B8E0BF004C2AFA /* CurrentWeatherData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2624D1729B8E0BF004C2AFA /* CurrentWeatherData+CoreDataProperties.swift */; };
+		F2624D1C29B8ED27004C2AFA /* CurrentWeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2624D1B29B8ED27004C2AFA /* CurrentWeatherRepository.swift */; };
+		F2624D2129B8F1E6004C2AFA /* String + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2624D2029B8F1E6004C2AFA /* String + Extensions.swift */; };
 		F283D07229B7B34A0055DEED /* OpenWeatherAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F283D07129B7B34A0055DEED /* OpenWeatherAppApp.swift */; };
 		F283D07429B7B34A0055DEED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F283D07329B7B34A0055DEED /* ContentView.swift */; };
 		F283D07629B7B34B0055DEED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F283D07529B7B34B0055DEED /* Assets.xcassets */; };
@@ -69,6 +75,12 @@
 		D16931ECB82ABABF2317EC91 /* Pods_OpenWeatherApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OpenWeatherApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC73C43404A10E7FD01D6CFC /* Pods-OpenWeatherAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenWeatherAppTests.release.xcconfig"; path = "Target Support Files/Pods-OpenWeatherAppTests/Pods-OpenWeatherAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		F24BAA9029B893D100F2CEDD /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		F24BAAD029B8C05700F2CEDD /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		F24BAAD329B8C10700F2CEDD /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		F2624D1629B8E0BF004C2AFA /* CurrentWeatherData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurrentWeatherData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F2624D1729B8E0BF004C2AFA /* CurrentWeatherData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurrentWeatherData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F2624D1B29B8ED27004C2AFA /* CurrentWeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherRepository.swift; sourceTree = "<group>"; };
+		F2624D2029B8F1E6004C2AFA /* String + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extensions.swift"; sourceTree = "<group>"; };
 		F283D06E29B7B34A0055DEED /* OpenWeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenWeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F283D07129B7B34A0055DEED /* OpenWeatherAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherAppApp.swift; sourceTree = "<group>"; };
 		F283D07329B7B34A0055DEED /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -161,6 +173,24 @@
 			path = DashboardScreen;
 			sourceTree = "<group>";
 		};
+		F24BAACF29B8C04600F2CEDD /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				F2624D1629B8E0BF004C2AFA /* CurrentWeatherData+CoreDataClass.swift */,
+				F2624D1729B8E0BF004C2AFA /* CurrentWeatherData+CoreDataProperties.swift */,
+				F24BAAD029B8C05700F2CEDD /* Persistence.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		F2624D1A29B8ECFB004C2AFA /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				F2624D1B29B8ED27004C2AFA /* CurrentWeatherRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
 		F283D06529B7B34A0055DEED = {
 			isa = PBXGroup;
 			children = (
@@ -230,6 +260,7 @@
 			children = (
 				F2D6F66529B7CEFD00C9B9F2 /* R.generated.swift */,
 				F2D6F66329B7CE4800C9B9F2 /* Localizable.strings */,
+				F24BAAD229B8C10700F2CEDD /* Model.xcdatamodeld */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -258,6 +289,8 @@
 		F2D6F66B29B7D68000C9B9F2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				F2624D1A29B8ECFB004C2AFA /* Repository */,
+				F24BAACF29B8C04600F2CEDD /* CoreData */,
 				F2D6F67C29B81CCC00C9B9F2 /* CoreLocationService */,
 				F2D6F66C29B7D68500C9B9F2 /* OpenWeatherService */,
 				F2D6F67D29B827D900C9B9F2 /* UserDefaultsService */,
@@ -296,6 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				F2D6F67629B7F6E700C9B9F2 /* Date + Extensions.swift */,
+				F2624D2029B8F1E6004C2AFA /* String + Extensions.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -632,8 +666,11 @@
 				F2D6F67F29B8283D00C9B9F2 /* UserDefaultsService.swift in Sources */,
 				F283D07429B7B34A0055DEED /* ContentView.swift in Sources */,
 				F2D6F67729B7F6E700C9B9F2 /* Date + Extensions.swift in Sources */,
+				F2624D1929B8E0BF004C2AFA /* CurrentWeatherData+CoreDataProperties.swift in Sources */,
+				F2624D1C29B8ED27004C2AFA /* CurrentWeatherRepository.swift in Sources */,
 				F2D6F69229B86E7400C9B9F2 /* CurrentWeatherVM.swift in Sources */,
 				F283D07229B7B34A0055DEED /* OpenWeatherAppApp.swift in Sources */,
+				F24BAAD129B8C05700F2CEDD /* Persistence.swift in Sources */,
 				F2D6F66829B7D55800C9B9F2 /* ForecastVM.swift in Sources */,
 				F2D6F69629B875DF00C9B9F2 /* CurrentWeather.swift in Sources */,
 				F2D6F67929B7FC8900C9B9F2 /* Forecast.swift in Sources */,
@@ -646,7 +683,10 @@
 				F2D6F67B29B81C9C00C9B9F2 /* CoreLocationDelegate.swift in Sources */,
 				F24BAA9129B893D100F2CEDD /* DashboardView.swift in Sources */,
 				F2D6F68929B84B1200C9B9F2 /* OldWeatherSearchQueriesView.swift in Sources */,
+				F24BAAD429B8C10700F2CEDD /* Model.xcdatamodeld in Sources */,
 				F2D6F68D29B8532700C9B9F2 /* WeatherPresentableProtocol.swift in Sources */,
+				F2624D1829B8E0BF004C2AFA /* CurrentWeatherData+CoreDataClass.swift in Sources */,
+				F2624D2129B8F1E6004C2AFA /* String + Extensions.swift in Sources */,
 				F2D6F66E29B7D69B00C9B9F2 /* OpenWeatherService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -980,6 +1020,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F24BAAD229B8C10700F2CEDD /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F24BAAD329B8C10700F2CEDD /* Model.xcdatamodel */,
+			);
+			currentVersion = F24BAAD329B8C10700F2CEDD /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = F283D06629B7B34A0055DEED /* Project object */;
 }

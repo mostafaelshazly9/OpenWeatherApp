@@ -13,9 +13,25 @@ class ForecastVM: BaseWeatherSearchVM {
         UserDefaultsService.shared.retrieveLastNQueries(5).reversed()
     }
 
+    @MainActor
+    func didTapFilter24h() {
+        applyFilterFunction { forecast in
+            guard let hour = (Date(timeIntervalSince1970: forecast.date) - Date()).hour else { return false }
+            return ( hour < 24)
+        }
+    }
+
+    @MainActor
+    func didTapFilter48h() {
+        applyFilterFunction { forecast in
+            guard let hour = (Date(timeIntervalSince1970: forecast.date) - Date()).hour else { return false }
+            return ( hour < 48)
+        }
+    }
+
     override func runWeatherFunctionByLatLon() {
         queryTask = Task {
-            let query = getLatLongFromQuery()
+            let query = query.getLatLongFromQuery()
             do {
                 let response = try await OpenWeatherService.shared.fetchWeatherForecast(lat: query.lat, lon: query.lon)
                 await setForecastsFrom(response)
@@ -28,7 +44,7 @@ class ForecastVM: BaseWeatherSearchVM {
 
     override func runWeatherFunctionByZipCountryCodes() {
         queryTask = Task {
-            let query = getZipCountryCodesFromQuery()
+            let query = query.getZipCountryCodesFromQuery()
             do {
                 let response = try await OpenWeatherService.shared.fetchWeatherForecast(zipCode: query.zip,
                                                                                  countryCode: query.country)

@@ -18,23 +18,7 @@ struct CurrentWeatherResponse: Decodable {
 }
 
 struct WeatherForecastResponse: Decodable {
-    let cnt: Int
     let list: [WeatherForecastResponseList]
-    let city: City?
-}
-
-// MARK: - City
-struct City: Decodable {
-    let id: Int?
-    let name: String?
-    let coord: Coord?
-    let country: String?
-    let population, timezone, sunrise, sunset: Double?
-}
-
-// MARK: - Coord
-struct Coord: Decodable {
-    let lat, lon: Double?
 }
 
 // MARK: - List
@@ -42,45 +26,22 @@ struct WeatherForecastResponseList: Decodable {
     let timeOfForecast: Double
     let main: Main
     let weather: [Weather]
-    let clouds: Clouds?
-    let wind: Wind?
-    let visibility: Double?
-    let pop: Double?
-    let rain: Rain?
     let sys: Sys?
-    let dtTxt: Date?
 
     private enum CodingKeys: String, CodingKey {
-        case timeOfForecast = "dt", main, weather, clouds, wind, visibility, pop, rain, sys, dtTxt
+        case timeOfForecast = "dt", main, weather, sys
     }
-}
-
-// MARK: - Clouds
-struct Clouds: Decodable {
-    let all: Double?
 }
 
 // MARK: - Main
 struct Main: Decodable {
-    let temp, feelsLike, tempMin, tempMax: Double?
-    let pressure, seaLevel, grndLevel, humidity: Double?
+    let temp, feelsLike: Double?
 
     private enum CodingKeys: String, CodingKey {
         case temp
         case feelsLike = "feels_like"
-        case tempMin = "temp_min"
-        case tempMax = "temp_max"
-        case pressure
-        case seaLevel = "sea_level"
-        case grndLevel = "grnd_level"
-        case humidity
     }
 
-}
-
-// MARK: - Rain
-struct Rain: Decodable {
-    let the3H: Double?
 }
 
 // MARK: - Sys
@@ -90,10 +51,8 @@ struct Sys: Decodable {
 
 // MARK: - Weather
 struct Weather: Decodable {
-    let main, description, icon: String?
-}
-
-// MARK: - Wind
-struct Wind: Decodable {
-    let speed: Double?
+    let main, weatherDescription, icon: String?
+    private enum CodingKeys: String, CodingKey {
+        case main, weatherDescription =  "description", icon
+    }
 }
