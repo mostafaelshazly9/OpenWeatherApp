@@ -30,3 +30,9 @@ File structure layout:
 |-Services (Models, each contained to itself and hiding its implementation complexity within) <br>
 |-UserScreens (The Screens that the user sees, their VMs and their base classes) <br>
 |-Views (Reusable SwiftUI views and style modifiers) <br>
+<br>
+Installation:
+<br>
+run pod install or bundle exec pod install if you have rbenv 3.0.2 to get the very exact versions I am running.
+Using XCode, open the "OpenWeatherApp.xcworkspace" , not the "OpenWeatherApp.xcodeproj" one
+Run the app
