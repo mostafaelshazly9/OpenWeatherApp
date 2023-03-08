@@ -35,9 +35,23 @@ extension CurrentWeatherView {
             if !viewModel.results.isEmpty,
                let currentWeather = viewModel.results
                 .compactMap({ $0 as? CurrentWeather }).first {
-                CurrentWeatherBanner(currentWeather: currentWeather, unit: viewModel.displayUnits)
+                ZStack {
+                    CurrentWeatherBanner(currentWeather: currentWeather, unit: viewModel.displayUnits)
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            NavigationLink("Forecast", value: 2)
+                                .modifier(WeatherSearchButtonStyle())
+                        }
+                    }
+                }
             }
             unitsButtons
+        }
+        .navigationTitle("Current Weather")
+        .navigationDestination(for: Int.self) { _ in
+            ForecastView(path: $path)
         }
     }
 
