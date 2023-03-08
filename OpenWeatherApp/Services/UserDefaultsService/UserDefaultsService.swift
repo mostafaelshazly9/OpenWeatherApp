@@ -15,27 +15,27 @@ class UserDefaultsService {
 
     private init() {}
 
-    func saveForecastQuery(_ query: String) {
-        var array = retrieveLast5ForecastQueries()
+    func saveQuery(_ query: String) {
+        var array = retrieveLastNQueries(1000)
         if let index = array.firstIndex(of: query) {
             array.remove(at: index)
         }
         array.append(query)
 
-        defaults.set(array, forKey: "ForecastQueries")
-        maintainLengthOf5ForecastQueries(array)
+        defaults.set(array, forKey: "Queries")
+        maintainLengthOf10ForecastQueries(array)
     }
 
-    func retrieveLast5ForecastQueries() -> [String] {
-        defaults.stringArray(forKey: "ForecastQueries") ?? []
+    func retrieveLastNQueries(_ number: Int) -> [String] {
+        Array(defaults.stringArray(forKey: "Queries")?.suffix(number) ?? [])
     }
 
-    func maintainLengthOf5ForecastQueries(_ queries: [String]) {
-        guard queries.count > 5 else { return }
+    func maintainLengthOf10ForecastQueries(_ queries: [String]) {
+        guard queries.count > 10 else { return }
         var newArray = queries
-        for _ in 0..<(queries.count - 5) {
+        for _ in 0..<(queries.count - 10) {
             newArray.remove(at: 0)
         }
-        defaults.set(newArray, forKey: "ForecastQueries")
+        defaults.set(newArray, forKey: "Queries")
     }
 }

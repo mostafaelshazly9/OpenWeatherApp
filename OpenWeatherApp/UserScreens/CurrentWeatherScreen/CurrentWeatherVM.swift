@@ -10,7 +10,7 @@ import Foundation
 class CurrentWeatherVM: BaseWeatherSearchVM {
 
     override func loadPreviousQueries() -> [String] {
-        UserDefaultsService.shared.retrieveLast5ForecastQueries().reversed() // TODO: Update
+        UserDefaultsService.shared.retrieveLastNQueries(10).reversed()
     }
 
     override func runWeatherFunctionByLatLon() {
@@ -19,7 +19,7 @@ class CurrentWeatherVM: BaseWeatherSearchVM {
             do {
                 let response = try await OpenWeatherService.shared.fetchCurrentWeather(lat: query.lat, lon: query.lon)
                 await setForecastsFrom(response)
-                UserDefaultsService.shared.saveForecastQuery(self.query)
+                UserDefaultsService.shared.saveQuery(self.query)
             } catch let error {
                 print(error)
             }
@@ -33,7 +33,7 @@ class CurrentWeatherVM: BaseWeatherSearchVM {
                 let response = try await OpenWeatherService.shared.fetchCurrentWeather(zipCode: query.zip,
                                                                                  countryCode: query.country)
                 await setForecastsFrom(response)
-                UserDefaultsService.shared.saveForecastQuery(self.query)
+                UserDefaultsService.shared.saveQuery(self.query)
             } catch let error {
                 print(error)
             }
@@ -46,7 +46,7 @@ class CurrentWeatherVM: BaseWeatherSearchVM {
             do {
                 let response = try await OpenWeatherService.shared.fetchCurrentWeather(city: city)
                 await setForecastsFrom(response)
-                UserDefaultsService.shared.saveForecastQuery(self.query)
+                UserDefaultsService.shared.saveQuery(self.query)
             } catch let error {
                 print(error)
             }

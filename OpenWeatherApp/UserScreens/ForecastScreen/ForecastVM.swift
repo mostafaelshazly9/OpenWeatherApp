@@ -19,7 +19,7 @@ class ForecastVM: BaseWeatherSearchVM {
     }
 
     override func loadPreviousQueries() -> [String] {
-        UserDefaultsService.shared.retrieveLast5ForecastQueries().reversed()
+        UserDefaultsService.shared.retrieveLastNQueries(5).reversed()
     }
 
     override func runWeatherFunctionByLatLon() {
@@ -28,7 +28,7 @@ class ForecastVM: BaseWeatherSearchVM {
             do {
                 let response = try await OpenWeatherService.shared.fetchWeatherForecast(lat: query.lat, lon: query.lon)
                 await setForecastsFrom(response)
-                UserDefaultsService.shared.saveForecastQuery(self.query)
+                UserDefaultsService.shared.saveQuery(self.query)
             } catch let error {
                 print(error)
             }
@@ -42,7 +42,7 @@ class ForecastVM: BaseWeatherSearchVM {
                 let response = try await OpenWeatherService.shared.fetchWeatherForecast(zipCode: query.zip,
                                                                                  countryCode: query.country)
                 await setForecastsFrom(response)
-                UserDefaultsService.shared.saveForecastQuery(self.query)
+                UserDefaultsService.shared.saveQuery(self.query)
             } catch let error {
                 print(error)
             }
@@ -55,7 +55,7 @@ class ForecastVM: BaseWeatherSearchVM {
             do {
                 let response = try await OpenWeatherService.shared.fetchWeatherForecast(city: city)
                 await setForecastsFrom(response)
-                UserDefaultsService.shared.saveForecastQuery(self.query)
+                UserDefaultsService.shared.saveQuery(self.query)
             } catch let error {
                 print(error)
             }

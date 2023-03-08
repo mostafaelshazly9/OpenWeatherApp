@@ -28,7 +28,6 @@ struct OldWeatherSearchQueriesView: View {
             }
         }
         .scrollContentBackground(.hidden)
-        .frame(height: 300)
     }
 }
 
