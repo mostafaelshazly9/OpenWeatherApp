@@ -47,6 +47,9 @@ struct ForecastView: View {
         }, message: {
             Text(R.string.localizable.searchInstructionsMessage())
         })
+        .onAppear {
+            viewModel.viewDidAppear()
+        }
     }
 }
 

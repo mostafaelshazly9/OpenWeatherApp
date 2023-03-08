@@ -24,6 +24,15 @@ class ForecastVM: ObservableObject {
         self.delegate = delegate
     }
 
+    func viewDidAppear() {
+        if let lastQuery = UserDefaultsService.shared.retrieveLast5ForecastQueries().reversed().first {
+            Task {
+                await setQuery(to: lastQuery)
+                searchForQuery()
+            }
+        }
+    }
+
     func didTapSearchButton() {
         cancelQueryTask()
         isShowingOldRQueries = false
@@ -74,14 +83,14 @@ class ForecastVM: ObservableObject {
     fileprivate func searchForQuery() {
         Task {
             await resetForecasts()
-        }
 
-        if isValidLatLong() {
-            fetchWeatherForecastByLatLon()
-        } else if isValidZipCountryCodes() {
-            fetchWeatherForecastByZipCountryCodes()
-        } else {
-            fetchWeatherForecastByCity()
+            if isValidLatLong() {
+                fetchWeatherForecastByLatLon()
+            } else if isValidZipCountryCodes() {
+                fetchWeatherForecastByZipCountryCodes()
+            } else {
+                fetchWeatherForecastByCity()
+            }
         }
     }
 
