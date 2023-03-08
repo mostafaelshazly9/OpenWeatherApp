@@ -23,17 +23,35 @@ class OpenWeatherService {
         guard !lat.isEmpty && !lon.isEmpty else { throw OpenWeatherError.missingData }
 
         let urlString = "https://api.openweathermap.org/data/2.5/forecast?lat=\(lat)&lon=\(lon)&appid=\(apiKey)"
+
+        return try await retrieveWeatherForecast(from: urlString)
+    }
+
+    static func fetchWeatherForecast(city: String) async throws -> WeatherForecastResponse {
+        guard !city.isEmpty else { throw OpenWeatherError.missingData }
+
+        let urlString = "https://api.openweathermap.org/data/2.5/forecast?q=\(city)&appid=\(apiKey)"
+
+        return try await retrieveWeatherForecast(from: urlString)
+    }
+
+    static func fetchWeatherForecast(zipCode: String, countryCode: String) async throws -> WeatherForecastResponse {
+        guard !zipCode.isEmpty && !countryCode.isEmpty else { throw OpenWeatherError.missingData }
+
+        let urlString = "https://api.openweathermap.org/data/2.5/forecast?zip=\(zipCode),\(countryCode)&appid=\(apiKey)"
+
+        return try await retrieveWeatherForecast(from: urlString)
+    }
+
+    fileprivate static func retrieveWeatherForecast(from urlString: String) async throws -> WeatherForecastResponse {
         guard let url = URL(string: urlString) else {
             throw OpenWeatherError.invalidURL
         }
 
-        // Use the async variant of URLSession to fetch data
-        // Code might suspend here
         let (data, response) = try await URLSession.shared.data(from: url)
         print("Response:", response)
         print(String(decoding: data, as: UTF8.self))
 
-        // Parse the JSON data
         let result = try JSONDecoder().decode(WeatherForecastResponse.self, from: data)
         print(result)
         return result
