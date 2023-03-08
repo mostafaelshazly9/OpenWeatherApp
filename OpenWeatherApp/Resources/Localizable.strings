@@ -1,0 +1,37 @@
+/* 
+  Localizable.strings
+  OpenWeatherApp
+
+  Created by Mostafa Elshazly on 07/03/2023.
+  
+*/
+
+
+// MARK: General
+
+"ok" = "OK";
+
+// MARK: Resources:
+"mapIcon" = "mappin.and.ellipse";
+"questionmarkIcon" = "questionmark.circle.fill";
+"rewindIcon" = "clock.arrow.circlepath";
+"forecastRowBackgroundDay" = "ForecastRowBackground-light";
+"forecastRowBackgroundNight" = "ForecastRowBackground-dark";
+
+// MARK: ForecastScreen
+
+"searchInstructions" = "Search instructions";
+"searchInstructionsMessage" = "
+You can search for your current location by tapping the map pin icon on the left, alternatively, you can search for a city, a zip code or by latitude / longitude as follows:
+
+lat/lon: 12,34.567
+
+zip code: 12345,us (ISO 3166 2 letter country codes)
+
+city: london or london,gb (ISO 3166 2 letter country codes)
+
+US city: Houston,Texas,us {city name},{state code},us
+";
+"searchPrompt" = "Enter city, zip code or lat/lon";
+"search" = "Search";
+"showOldQueries" = "Show old searches";
