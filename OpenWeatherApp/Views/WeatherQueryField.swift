@@ -39,6 +39,7 @@ struct WeatherQueryField: View {
                 } label: {
                     Image(systemName: R.string.localizable.mapIcon())
                         .imageScale(.large)
+                    .foregroundColor(.brown)
                 }
                 .padding(.leading, iconPadding)
                 Spacer()
@@ -47,6 +48,7 @@ struct WeatherQueryField: View {
                 } label: {
                     Image(systemName: R.string.localizable.questionmarkIcon())
                         .imageScale(.large)
+                        .foregroundColor(.brown)
                 }
                 .padding(.trailing, iconPadding)
             }

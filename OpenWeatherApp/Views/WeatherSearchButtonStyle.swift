@@ -15,7 +15,7 @@ struct WeatherSearchButtonStyle: ViewModifier {
         content
             .padding()
             .foregroundColor(.white)
-            .background(Color.accentColor)
+            .background(Color.brown)
             .cornerRadius(searchButtonCornerRadius)
     }
 }

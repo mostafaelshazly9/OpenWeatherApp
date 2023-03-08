@@ -35,6 +35,10 @@ struct ForecastRow: View {
             .multilineTextAlignment(.center)
         .padding()
         }
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(lineWidth: 1.5)
+        )
     }
 }
 

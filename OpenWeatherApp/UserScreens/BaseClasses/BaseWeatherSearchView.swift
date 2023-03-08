@@ -23,23 +23,26 @@ struct BaseWeatherSearchView<ViewModel, Content>: View where ViewModel: WeatherS
     }
 
     var body: some View {
-        VStack {
-            if viewModel.isShowingOldQueries {
-                Spacer()
-            }
-            upper()
-            WeatherQueryField(didTapMapPinIcon: viewModel.didTapMapPinIcon, query: $viewModel.query)
-            HStack {
-                searchButton
-                oldQuerieshButton
-            }
-            if viewModel.isShowingOldQueries {
-                OldWeatherSearchQueriesView(previousQueries: viewModel.previousQueries,
-                                            didSelectQuery: viewModel.didSelectQuery(_:))
-                Spacer()
-            } else {
-                if !viewModel.results.isEmpty {
-                    lower()
+        ZStack {
+            Color.white
+            VStack {
+                if viewModel.isShowingOldQueries {
+                    Spacer()
+                }
+                upper()
+                WeatherQueryField(didTapMapPinIcon: viewModel.didTapMapPinIcon, query: $viewModel.query)
+                HStack {
+                    searchButton
+                    oldQuerieshButton
+                }
+                if viewModel.isShowingOldQueries {
+                    OldWeatherSearchQueriesView(previousQueries: viewModel.previousQueries,
+                                                didSelectQuery: viewModel.didSelectQuery(_:))
+                    Spacer()
+                } else {
+                    if !viewModel.results.isEmpty {
+                        lower()
+                    }
                 }
             }
         }
@@ -58,7 +61,10 @@ extension BaseWeatherSearchView {
         Button {
             viewModel.didTapSearchButton()
         } label: {
-            Text(R.string.localizable.search())
+            Image(systemName: "magnifyingglass.circle")
+                .renderingMode(.template)
+                .resizable()
+                .frame(width: 25, height: 25)
         }
         .modifier(WeatherSearchButtonStyle())
     }
@@ -67,7 +73,10 @@ extension BaseWeatherSearchView {
         Button {
             viewModel.didTapOldQueriesButton()
         } label: {
-            Text(R.string.localizable.showOldQueries())
+            Image(systemName: "clock")
+                .renderingMode(.template)
+                .resizable()
+                .frame(width: 25, height: 25)
         }
         .modifier(WeatherSearchButtonStyle())
     }
