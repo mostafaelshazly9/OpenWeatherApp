@@ -31,7 +31,9 @@ struct CurrentWeather: WeatherPresentableProtocol, Identifiable {
         self.date = response.timeOfForecast
         self.isNight = false
         self.title = response.weather.first?.main ?? ""
-        self.description = response.weather.first?.weatherDescription ?? ""
+        self.description = response.weather.first?.description ?? ""
         self.icon = response.weather.first?.icon ?? ""
+        self.temp = response.main.temp
+        self.feelsLike = response.main.feelsLike
     }
 }

@@ -12,7 +12,13 @@ struct CurrentWeatherView: View {
     @StateObject var viewModel = CurrentWeatherVM()
 
     var body: some View {
-        BaseWeatherSearchView<CurrentWeatherVM, AnyView>(viewModel: viewModel)
+        BaseWeatherSearchView<CurrentWeatherVM, AnyView>(viewModel: viewModel, upper: {
+            if !viewModel.results.isEmpty,
+               let currentWeather = viewModel.results
+                .compactMap({ $0 as? CurrentWeather }).first {
+                AnyView(CurrentWeatherBanner(currentWeather: currentWeather))
+            }
+        })
     }
 }
 

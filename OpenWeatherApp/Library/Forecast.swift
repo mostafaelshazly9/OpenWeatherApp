@@ -31,7 +31,7 @@ struct Forecast: WeatherPresentableProtocol, Identifiable {
         self.date = response.timeOfForecast
         self.isNight = response.sys?.pod == "n"
         self.title = response.weather.first?.main ?? ""
-        self.description = response.weather.first?.weatherDescription ?? ""
+        self.description = response.weather.first?.description ?? ""
         self.icon = response.weather.first?.icon ?? ""
     }
 }

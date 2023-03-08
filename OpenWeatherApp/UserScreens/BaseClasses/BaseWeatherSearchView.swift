@@ -27,6 +27,7 @@ struct BaseWeatherSearchView<ViewModel, Content>: View where ViewModel: WeatherS
             if viewModel.isShowingOldQueries {
                 Spacer()
             }
+            upper()
             WeatherQueryField(didTapMapPinIcon: viewModel.didTapMapPinIcon, query: $viewModel.query)
             HStack {
                 searchButton
