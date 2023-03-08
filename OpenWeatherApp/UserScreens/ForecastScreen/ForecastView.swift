@@ -9,19 +9,34 @@ import SwiftUI
 
 struct ForecastView: View {
 
+    var id: String = {
+        UUID().uuidString
+    }()
+
     @StateObject var viewModel = ForecastVM()
+    @Binding var path: [Int]
 
     var body: some View {
-        BaseWeatherSearchView<ForecastVM, AnyView>(viewModel: viewModel, lower: { AnyView(forecasts) })
-            .onAppear {
-                viewModel.viewDidAppear()
+        BaseWeatherSearchView<ForecastVM, AnyView>(viewModel: viewModel, upper: {
+            AnyView(Button("Pop to Root View") {
+                path.removeLast(path.count)
             }
+                .modifier(WeatherSearchButtonStyle())
+            )
+        }, lower: { AnyView(forecasts) }
+        )
+        .onAppear {
+            viewModel.viewDidAppear()
+        }
+        .navigationTitle("Forecast")
+        .navigationBarBackButtonHidden()
     }
 }
 
 struct ForecastView_Previews: PreviewProvider {
+    @State static var path = [Int]()
     static var previews: some View {
-        ForecastView()
+        ForecastView(path: $path)
     }
 }
 

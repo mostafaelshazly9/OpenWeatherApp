@@ -10,38 +10,32 @@ import SwiftUI
 struct DashboardView: View {
 
     @StateObject var viewModel = CurrentWeatherVM()
-    @State private var shouldNavigateToForecastScreen: Bool = false
-    @State private var shouldNavigateToCurrentWeatherScreen: Bool = false
+
+    @State private var path = [Int]()
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             VStack {
                 if !viewModel.results.isEmpty,
                    let currentWeather = viewModel.results
                     .compactMap({ $0 as? CurrentWeather }).first {
                     CurrentWeatherBanner(currentWeather: currentWeather, unit: viewModel.displayUnits)
                 }
-                Button {
-                    shouldNavigateToForecastScreen = true
-                } label: {
-                    Text("Go to Weather Forecast")
-                }
+
+                NavigationLink("Go to Weather Forecast", value: 2)
                 .modifier(WeatherSearchButtonStyle())
 
-                Button {
-                    shouldNavigateToCurrentWeatherScreen = true
-                } label: {
-                    Text("Go to Current Weather")
-                }
+                NavigationLink("Go to Current Weather", value: 3)
                 .modifier(WeatherSearchButtonStyle())
             }
             .navigationTitle("Dashboard")
-            .navigationDestination(isPresented: $shouldNavigateToForecastScreen) {
-                ForecastView()
+            .navigationDestination(for: Int.self) { int in
+                if int == 2 {
+                    ForecastView(path: $path)
+                } else if int == 3 {
+                    CurrentWeatherView()
+                }
             }
-            .navigationDestination(isPresented: $shouldNavigateToCurrentWeatherScreen) {
-                CurrentWeatherView()
-           }
         }
         .onAppear {
             viewModel.viewDidAppear()
