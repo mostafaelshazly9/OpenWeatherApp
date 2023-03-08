@@ -44,6 +44,7 @@ struct CurrentWeatherBanner_Previews: PreviewProvider {
                                                             isNight: true,
                                                             title: "Clouds",
                                                             description: "scattered clouds",
-                                                            icon: "03d"), unit: "°C")
+                                                            icon: "03d", temp: 50,
+                                                            feelsLike: 55),  unit: "°C")
     }
 }

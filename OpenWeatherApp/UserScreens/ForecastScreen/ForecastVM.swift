@@ -31,7 +31,7 @@ class ForecastVM: BaseWeatherSearchVM {
 
     override func runWeatherFunctionByLatLon() {
         queryTask = Task {
-            let query = getLatLongFromQuery()
+            let query = query.getLatLongFromQuery()
             do {
                 let response = try await OpenWeatherService.shared.fetchWeatherForecast(lat: query.lat, lon: query.lon)
                 await setForecastsFrom(response)
@@ -44,7 +44,7 @@ class ForecastVM: BaseWeatherSearchVM {
 
     override func runWeatherFunctionByZipCountryCodes() {
         queryTask = Task {
-            let query = getZipCountryCodesFromQuery()
+            let query = query.getZipCountryCodesFromQuery()
             do {
                 let response = try await OpenWeatherService.shared.fetchWeatherForecast(zipCode: query.zip,
                                                                                  countryCode: query.country)

@@ -122,9 +122,9 @@ class BaseWeatherSearchVM: WeatherSearchVMProtocol {
         Task {
             await resetResults()
 
-            if isValidLatLong() {
+            if query.isValidLatLong() {
                 runWeatherFunctionByLatLon()
-            } else if isValidZipCountryCodes() {
+            } else if query.isValidZipCountryCodes() {
                 runWeatherFunctionByZipCountryCodes()
             } else {
                 runWeatherFunctionByCity()
@@ -177,46 +177,5 @@ class BaseWeatherSearchVM: WeatherSearchVMProtocol {
     func cancelQueryTask() {
         queryTask?.cancel()
         queryTask = nil
-    }
-
-    // MARK: Latitude and Longitude
-
-    func isValidLatLong() -> Bool {
-        if let lat = query.replacingOccurrences(of: " ", with: "").components(separatedBy: ",").first,
-           let lon = query.replacingOccurrences(of: " ", with: "").components(separatedBy: ",").last,
-           (Double(lat) != nil) && (Double(lon) != nil) {
-            return true
-        } else {
-            return false
-        }
-    }
-
-    func getLatLongFromQuery() -> (lat: String, lon: String) {
-        if let lat = query.replacingOccurrences(of: " ", with: "").components(separatedBy: ",").first,
-           let lon = query.replacingOccurrences(of: " ", with: "").components(separatedBy: ",").last {
-            return (lat, lon)
-        }
-        return ("", "")
-    }
-
-    // MARK: Zip code
-
-    func isValidZipCountryCodes() -> Bool {
-        if let zipCode = query.replacingOccurrences(of: " ", with: "").components(separatedBy: ",").first,
-           query.replacingOccurrences(of: " ", with: "").components(separatedBy: ",").last != nil,
-           let intZipCode = Int(zipCode),
-           intZipCode > 0 {
-            return true
-        } else {
-            return false
-        }
-    }
-
-    func getZipCountryCodesFromQuery() -> (zip: String, country: String) {
-        if let zipCode = query.replacingOccurrences(of: " ", with: "").components(separatedBy: ",").first,
-           let countryCode = query.replacingOccurrences(of: " ", with: "").components(separatedBy: ",").last {
-            return (zipCode, countryCode.lowercased())
-        }
-        return ("", "")
     }
 }

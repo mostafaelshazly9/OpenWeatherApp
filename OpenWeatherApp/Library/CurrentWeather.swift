@@ -19,7 +19,7 @@ struct CurrentWeather: WeatherPresentableProtocol, Identifiable {
     var temp: Double?
     var feelsLike: Double?
 
-    init(date: Double, isNight: Bool = false, title: String, description: String, icon: String) {
+    init(date: Double, isNight: Bool = false, title: String, description: String, icon: String, temp: Double?, feelsLike: Double?) {
         self.date = date
         self.isNight = isNight
         self.title = title

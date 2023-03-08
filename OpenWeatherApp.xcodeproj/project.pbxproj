@@ -15,6 +15,8 @@
 		F24BAAD429B8C10700F2CEDD /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F24BAAD229B8C10700F2CEDD /* Model.xcdatamodeld */; };
 		F2624D1829B8E0BF004C2AFA /* CurrentWeatherData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2624D1629B8E0BF004C2AFA /* CurrentWeatherData+CoreDataClass.swift */; };
 		F2624D1929B8E0BF004C2AFA /* CurrentWeatherData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2624D1729B8E0BF004C2AFA /* CurrentWeatherData+CoreDataProperties.swift */; };
+		F2624D1C29B8ED27004C2AFA /* CurrentWeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2624D1B29B8ED27004C2AFA /* CurrentWeatherRepository.swift */; };
+		F2624D2129B8F1E6004C2AFA /* String + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2624D2029B8F1E6004C2AFA /* String + Extensions.swift */; };
 		F283D07229B7B34A0055DEED /* OpenWeatherAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F283D07129B7B34A0055DEED /* OpenWeatherAppApp.swift */; };
 		F283D07429B7B34A0055DEED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F283D07329B7B34A0055DEED /* ContentView.swift */; };
 		F283D07629B7B34B0055DEED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F283D07529B7B34B0055DEED /* Assets.xcassets */; };
@@ -77,6 +79,8 @@
 		F24BAAD329B8C10700F2CEDD /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		F2624D1629B8E0BF004C2AFA /* CurrentWeatherData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurrentWeatherData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F2624D1729B8E0BF004C2AFA /* CurrentWeatherData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CurrentWeatherData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F2624D1B29B8ED27004C2AFA /* CurrentWeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherRepository.swift; sourceTree = "<group>"; };
+		F2624D2029B8F1E6004C2AFA /* String + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extensions.swift"; sourceTree = "<group>"; };
 		F283D06E29B7B34A0055DEED /* OpenWeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenWeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F283D07129B7B34A0055DEED /* OpenWeatherAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherAppApp.swift; sourceTree = "<group>"; };
 		F283D07329B7B34A0055DEED /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -179,6 +183,14 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
+		F2624D1A29B8ECFB004C2AFA /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				F2624D1B29B8ED27004C2AFA /* CurrentWeatherRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
 		F283D06529B7B34A0055DEED = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +289,7 @@
 		F2D6F66B29B7D68000C9B9F2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				F2624D1A29B8ECFB004C2AFA /* Repository */,
 				F24BAACF29B8C04600F2CEDD /* CoreData */,
 				F2D6F67C29B81CCC00C9B9F2 /* CoreLocationService */,
 				F2D6F66C29B7D68500C9B9F2 /* OpenWeatherService */,
@@ -316,6 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				F2D6F67629B7F6E700C9B9F2 /* Date + Extensions.swift */,
+				F2624D2029B8F1E6004C2AFA /* String + Extensions.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -653,6 +667,7 @@
 				F283D07429B7B34A0055DEED /* ContentView.swift in Sources */,
 				F2D6F67729B7F6E700C9B9F2 /* Date + Extensions.swift in Sources */,
 				F2624D1929B8E0BF004C2AFA /* CurrentWeatherData+CoreDataProperties.swift in Sources */,
+				F2624D1C29B8ED27004C2AFA /* CurrentWeatherRepository.swift in Sources */,
 				F2D6F69229B86E7400C9B9F2 /* CurrentWeatherVM.swift in Sources */,
 				F283D07229B7B34A0055DEED /* OpenWeatherAppApp.swift in Sources */,
 				F24BAAD129B8C05700F2CEDD /* Persistence.swift in Sources */,
@@ -671,6 +686,7 @@
 				F24BAAD429B8C10700F2CEDD /* Model.xcdatamodeld in Sources */,
 				F2D6F68D29B8532700C9B9F2 /* WeatherPresentableProtocol.swift in Sources */,
 				F2624D1829B8E0BF004C2AFA /* CurrentWeatherData+CoreDataClass.swift in Sources */,
+				F2624D2129B8F1E6004C2AFA /* String + Extensions.swift in Sources */,
 				F2D6F66E29B7D69B00C9B9F2 /* OpenWeatherService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

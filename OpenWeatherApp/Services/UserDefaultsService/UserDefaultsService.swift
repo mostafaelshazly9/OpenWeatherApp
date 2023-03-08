@@ -38,4 +38,13 @@ class UserDefaultsService {
         }
         defaults.set(newArray, forKey: "Queries")
     }
+
+    func saveUnit(_ unit: String) {
+        defaults.set(unit, forKey: "Unit")
+    }
+
+    func retrieveUnit() -> String {
+        defaults.string(forKey: "Unit") ?? "metric"
+    }
+
 }

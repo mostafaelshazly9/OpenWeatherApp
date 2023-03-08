@@ -11,6 +11,16 @@ import CoreData
 
 public class CurrentWeatherData: NSManagedObject {
 
+    func createCurrentWeather() -> CurrentWeather {
+        CurrentWeather(date: date,
+                       isNight: isNight,
+                       title: title ?? "",
+                       description: description,
+                       icon: icon ?? "",
+                       temp: temp,
+                       feelsLike: feelsLike)
+    }
+
     static func saveNew(query: String, currentWeather: CurrentWeather) {
         deleteQueryIfExists(query)
         let object = CurrentWeatherData(context: PersistenceController.shared.container.viewContext)
@@ -25,6 +35,17 @@ public class CurrentWeatherData: NSManagedObject {
         object.weatherDescription = currentWeather.description
         try? PersistenceController.shared.container.viewContext.save()
         deleteOldData()
+    }
+
+    static func getCurrentWeatherData(for query: String) -> CurrentWeatherData? {
+        deleteOldData()
+        let predicate = NSPredicate(format: "query == %@", query)
+        let fetchRequest: NSFetchRequest<CurrentWeatherData> = CurrentWeatherData.fetchRequest()
+        fetchRequest.predicate = predicate
+
+        let context = PersistenceController.shared.container.viewContext
+
+        return try? context.fetch(fetchRequest).first
     }
 
     static private func deleteOldData() {
