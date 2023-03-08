@@ -73,7 +73,7 @@ class CurrentWeatherVM: BaseWeatherSearchVM {
 
     private func addCurrentWeather() {
         if let weather = results.first as? CurrentWeather {
-            weather.createCurrentWeatherDataObject()
+            CurrentWeatherData.saveNew(query: query, currentWeather: weather)
         }
     }
 

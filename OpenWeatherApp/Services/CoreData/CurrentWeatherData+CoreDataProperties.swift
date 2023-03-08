@@ -23,8 +23,10 @@ extension CurrentWeatherData {
     @NSManaged public var temp: Double
     @NSManaged public var title: String?
     @NSManaged public var weatherDescription: String?
+    @NSManaged public var query: String?
+
 }
 
-extension CurrentWeatherData: Identifiable {
+extension CurrentWeatherData : Identifiable {
 
 }

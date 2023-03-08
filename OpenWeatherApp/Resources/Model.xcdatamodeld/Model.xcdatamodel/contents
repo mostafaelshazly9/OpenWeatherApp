@@ -6,6 +6,7 @@
         <attribute name="feelsLike" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="icon" optional="YES" attributeType="String"/>
         <attribute name="isNight" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="query" optional="YES" attributeType="String"/>
         <attribute name="temp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="weatherDescription" optional="YES" attributeType="String"/>
