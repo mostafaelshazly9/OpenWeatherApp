@@ -70,6 +70,15 @@ class BaseWeatherSearchVM: WeatherSearchVMProtocol {
         self.delegate = delegate
     }
 
+    func viewDidAppear() {
+        if let lastQuery = loadPreviousQueries().first {
+            Task {
+                await setQuery(to: lastQuery)
+                searchForQuery()
+            }
+        }
+    }
+
     func didTapSearchButton() {
         cancelQueryTask()
         isShowingOldQueries = false
