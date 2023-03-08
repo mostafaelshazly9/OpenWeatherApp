@@ -23,6 +23,9 @@ struct ForecastView: View {
         VStack {
             searchBar
             searchButton
+            if !viewModel.forecasts.isEmpty {
+                forecasts
+            }
         }
         .alert(R.string.localizable.searchInstructions(),
                isPresented: $isShowingInfoPopup,
@@ -89,5 +92,14 @@ extension ForecastView {
         .foregroundColor(.white)
         .background(Color.accentColor)
         .cornerRadius(searchButtonCornerRadius)
+    }
+
+    var forecasts: some View {
+        List {
+            ForEach(viewModel.forecasts) { forecast in
+                ForecastRow(forecast: forecast)
+            }
+        }
+        .scrollContentBackground(.hidden)
     }
 }

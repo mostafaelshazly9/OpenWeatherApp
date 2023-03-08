@@ -10,20 +10,26 @@ import Foundation
 class ForecastVM: ObservableObject {
 
     @Published var query = ""
+    @Published var forecasts: [Forecast] = []
 
     func didTapSearchButton() {
         // TODO: parse query then choose
-        if let lat = query.components(separatedBy: ",").first,
-           let lon = query.components(separatedBy: ",").last,
-           Double(lat) != nil,
-           Double(lon) != nil {
+        if let lat = query.replacingOccurrences(of: " ", with: "").components(separatedBy: ",").first,
+           let lon = query.replacingOccurrences(of: " ", with: "").components(separatedBy: ",").last,
+           (Double(lat) != nil) && (Double(lon) != nil) {
             Task {
                 do {
-                    try await OpenWeatherService.fetchWeatherForecast(lat: String(lat), lon: String(lon))
+                    let response = try await OpenWeatherService.fetchWeatherForecast(lat: String(lat), lon: String(lon))
+                    await setForeCastsFrom(response)
                 } catch let error {
                     print(error)
                 }
             }
         }
+    }
+
+    @MainActor
+    fileprivate func setForeCastsFrom(_ response: WeatherForecastResponse) {
+        forecasts = response.list.compactMap { Forecast(from: $0) }
     }
 }

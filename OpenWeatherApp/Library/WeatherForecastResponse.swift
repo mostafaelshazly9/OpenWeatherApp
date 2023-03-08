@@ -9,7 +9,7 @@ import Foundation
 
 struct WeatherForecastResponse: Decodable {
     let cnt: Int
-    let list: [List]
+    let list: [WeatherForecastResponseList]
     let city: City?
 }
 
@@ -28,7 +28,7 @@ struct Coord: Decodable {
 }
 
 // MARK: - List
-struct List: Decodable {
+struct WeatherForecastResponseList: Decodable {
     let timeOfForecast: Double
     let main: Main
     let weather: [Weather]
