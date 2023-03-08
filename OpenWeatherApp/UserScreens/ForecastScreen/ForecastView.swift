@@ -21,10 +21,21 @@ struct ForecastView: View {
 
     var body: some View {
         VStack {
+            if viewModel.isShowingOldRQueries {
+                Spacer()
+            }
             searchBar
-            searchButton
-            if !viewModel.forecasts.isEmpty {
-                forecasts
+            HStack {
+                searchButton
+                oldQuerieshButton
+            }
+            if viewModel.isShowingOldRQueries {
+                oldQueries
+                Spacer()
+            } else {
+                if !viewModel.forecasts.isEmpty {
+                    forecasts
+                }
             }
         }
         .alert(R.string.localizable.searchInstructions(),
@@ -94,6 +105,18 @@ extension ForecastView {
         .cornerRadius(searchButtonCornerRadius)
     }
 
+    var oldQuerieshButton: some View {
+        Button {
+            viewModel.didTapOldQueriesButton()
+        } label: {
+            Text(R.string.localizable.showOldQueries())
+                .padding()
+        }
+        .foregroundColor(.white)
+        .background(Color.accentColor)
+        .cornerRadius(searchButtonCornerRadius)
+    }
+
     var forecasts: some View {
         List {
             ForEach(viewModel.forecasts) { forecast in
@@ -101,5 +124,24 @@ extension ForecastView {
             }
         }
         .scrollContentBackground(.hidden)
+    }
+
+    var oldQueries: some View {
+        List {
+            ForEach(viewModel.previousQueries, id: \.self) { query in
+                Button {
+                    viewModel.didSelectQuery(query)
+                } label: {
+                    HStack {
+                        Text(query)
+                        Spacer()
+                        Image(systemName: R.string.localizable.rewindIcon())
+                            .imageScale(.large)
+                    }
+                }
+            }
+        }
+        .scrollContentBackground(.hidden)
+        .frame(height: 300)
     }
 }

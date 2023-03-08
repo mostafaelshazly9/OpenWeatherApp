@@ -12,18 +12,34 @@ class ForecastVM: ObservableObject {
 
     @Published var query = ""
     @Published var forecasts: [Forecast] = []
+    @Published var previousQueries: [String] = []
+    @Published var isShowingOldRQueries = false
 
+    private var queryTask: Task<(), Never>?
     private let manager = CLLocationManager()
     private var delegate: CoreLocationDelegate?
 
+    init(query: String = "", delegate: CoreLocationDelegate? = nil) {
+        self.query = query
+        self.delegate = delegate
+    }
+
     func didTapSearchButton() {
-        if isValidLatLong() {
-            fetchWeatherForecastByLatLon()
-        } else if isValidZipCountryCodes() {
-            fetchWeatherForecastByZipCountryCodes()
-        } else {
-            fetchWeatherForecastByCity()
-        }
+        cancelQueryTask()
+        isShowingOldRQueries = false
+        searchForQuery()
+    }
+
+    func didTapOldQueriesButton() {
+        cancelQueryTask()
+        previousQueries = UserDefaultsService.shared.retrieveLast5ForecastQueries().reversed()
+        isShowingOldRQueries = true
+    }
+
+    func didSelectQuery(_ query: String) {
+        self.query = query
+        isShowingOldRQueries = false
+        searchForQuery()
     }
 
     func didTapMapPinIcon() {
@@ -50,6 +66,30 @@ class ForecastVM: ObservableObject {
         forecasts = response.list.compactMap { Forecast(from: $0) }
     }
 
+    @MainActor
+    private func resetForecasts() {
+        forecasts = []
+    }
+
+    fileprivate func searchForQuery() {
+        Task {
+            await resetForecasts()
+        }
+
+        if isValidLatLong() {
+            fetchWeatherForecastByLatLon()
+        } else if isValidZipCountryCodes() {
+            fetchWeatherForecastByZipCountryCodes()
+        } else {
+            fetchWeatherForecastByCity()
+        }
+    }
+
+    fileprivate func cancelQueryTask() {
+        queryTask?.cancel()
+        queryTask = nil
+    }
+
     // MARK: Latitude and Longitude
 
     private func isValidLatLong() -> Bool {
@@ -71,11 +111,12 @@ class ForecastVM: ObservableObject {
     }
 
     private func fetchWeatherForecastByLatLon() {
-        Task {
+        queryTask = Task {
             let query = getLatLongFromQuery()
             do {
                 let response = try await OpenWeatherService.shared.fetchWeatherForecast(lat: query.lat, lon: query.lon)
                 await setForecastsFrom(response)
+                UserDefaultsService.shared.saveForecastQuery(self.query)
             } catch let error {
                 print(error)
             }
@@ -104,12 +145,13 @@ class ForecastVM: ObservableObject {
     }
 
     private func fetchWeatherForecastByZipCountryCodes() {
-        Task {
+        queryTask = Task {
             let query = getZipCountryCodesFromQuery()
             do {
                 let response = try await OpenWeatherService.shared.fetchWeatherForecast(zipCode: query.zip,
                                                                                  countryCode: query.country)
                 await setForecastsFrom(response)
+                UserDefaultsService.shared.saveForecastQuery(self.query)
             } catch let error {
                 print(error)
             }
@@ -119,11 +161,12 @@ class ForecastVM: ObservableObject {
     // MARK: City
 
     private func fetchWeatherForecastByCity() {
-        Task {
+        queryTask = Task {
             let city = query.replacingOccurrences(of: ", ", with: "")
             do {
                 let response = try await OpenWeatherService.shared.fetchWeatherForecast(city: city)
                 await setForecastsFrom(response)
+                UserDefaultsService.shared.saveForecastQuery(self.query)
             } catch let error {
                 print(error)
             }

@@ -14,8 +14,9 @@
 // MARK: Resources:
 "mapIcon" = "mappin.and.ellipse";
 "questionmarkIcon" = "questionmark.circle.fill";
-forecastRowBackgroundDay = "ForecastRowBackground-light";
-forecastRowBackgroundNight = "ForecastRowBackground-dark";
+"rewindIcon" = "clock.arrow.circlepath";
+"forecastRowBackgroundDay" = "ForecastRowBackground-light";
+"forecastRowBackgroundNight" = "ForecastRowBackground-dark";
 
 // MARK: ForecastScreen
 
@@ -33,3 +34,4 @@ US city: Houston,Texas,us {city name},{state code},us
 ";
 "searchPrompt" = "Enter city, zip code or lat/lon";
 "search" = "Search";
+"showOldQueries" = "Show old searches";
