@@ -87,12 +87,9 @@ class OpenWeatherService {
             throw OpenWeatherError.invalidURL
         }
 
-        let (data, response) = try await URLSession.shared.data(from: url)
-        print("Response:", response)
-        print(String(decoding: data, as: UTF8.self))
+        let (data, _) = try await URLSession.shared.data(from: url)
 
         let result = try JSONDecoder().decode(WeatherForecastResponse.self, from: data)
-        print(result)
         return result
     }
 
@@ -101,12 +98,9 @@ class OpenWeatherService {
             throw OpenWeatherError.invalidURL
         }
 
-        let (data, response) = try await URLSession.shared.data(from: url)
-        print("Response:", response)
-        print(String(decoding: data, as: UTF8.self))
+        let (data, _) = try await URLSession.shared.data(from: url)
 
         let result = try JSONDecoder().decode(CurrentWeatherResponse.self, from: data)
-        print(result)
         return result
     }
 }

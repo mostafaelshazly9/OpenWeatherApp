@@ -106,15 +106,11 @@ class BaseWeatherSearchVM: WeatherSearchVMProtocol {
 
     func didTapMapPinIcon() {
         Task {
-            do {
-                let location: CLLocation = try await
-                withCheckedThrowingContinuation { [weak self] continuation in
-                    self?.delegate = CoreLocationDelegate(manager: manager, continuation: continuation)
-                }
-                await setQuery(to: "\(location.coordinate.latitude),\(location.coordinate.longitude)")
-            } catch let error {
-                print(error)
+            let location: CLLocation = try await
+            withCheckedThrowingContinuation { [weak self] continuation in
+                self?.delegate = CoreLocationDelegate(manager: manager, continuation: continuation)
             }
+            await setQuery(to: "\(location.coordinate.latitude),\(location.coordinate.longitude)")
         }
     }
 
