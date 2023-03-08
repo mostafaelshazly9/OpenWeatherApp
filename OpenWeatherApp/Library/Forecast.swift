@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Forecast: Identifiable {
+struct Forecast: WeatherPresentableProtocol, Identifiable {
 
     var id: Double { date }
 
@@ -16,6 +16,8 @@ struct Forecast: Identifiable {
     var title: String
     var description: String
     var icon: String
+    var temp: Double?
+    var feelsLike: Double?
 
     init(date: Double, isNight: Bool = true, title: String, description: String, icon: String) {
         self.date = date
