@@ -13,6 +13,9 @@ struct ForecastView: View {
 
     var body: some View {
         BaseWeatherSearchView<ForecastVM, AnyView>(viewModel: viewModel, lower: { AnyView(forecasts) })
+            .onAppear {
+                viewModel.viewDidAppear()
+            }
     }
 }
 

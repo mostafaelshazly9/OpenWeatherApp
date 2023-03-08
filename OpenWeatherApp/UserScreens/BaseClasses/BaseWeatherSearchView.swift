@@ -43,9 +43,6 @@ struct BaseWeatherSearchView<ViewModel, Content>: View where ViewModel: WeatherS
                 }
             }
         }
-        .onAppear {
-            viewModel.viewDidAppear()
-        }
     }}
 
 struct BaseWeatherSearchView_Previews: PreviewProvider {

@@ -9,15 +9,6 @@ import Foundation
 
 class ForecastVM: BaseWeatherSearchVM {
 
-    func viewDidAppear() {
-        if let lastQuery = loadPreviousQueries().first {
-            Task {
-                await setQuery(to: lastQuery)
-                searchForQuery()
-            }
-        }
-    }
-
     override func loadPreviousQueries() -> [String] {
         UserDefaultsService.shared.retrieveLastNQueries(5).reversed()
     }

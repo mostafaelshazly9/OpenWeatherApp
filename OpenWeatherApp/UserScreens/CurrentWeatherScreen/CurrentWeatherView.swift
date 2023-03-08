@@ -38,6 +38,7 @@ extension CurrentWeatherView {
             unitsButtons
         }
     }
+
     var unitsButtons: some View {
         HStack {
             Button {
