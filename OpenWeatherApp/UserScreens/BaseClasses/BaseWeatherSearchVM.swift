@@ -164,8 +164,8 @@ class BaseWeatherSearchVM: WeatherSearchVMProtocol {
     }
 
     @MainActor
-    func setForecastsFrom(_ response: CurrentWeatherResponse) {
-        results = [CurrentWeather(from: response)]
+    func setForecastsFrom(weather: CurrentWeather) {
+        results = [weather]
     }
 
     @MainActor

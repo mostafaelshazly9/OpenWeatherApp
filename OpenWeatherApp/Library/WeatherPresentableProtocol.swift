@@ -14,7 +14,7 @@ protocol WeatherPresentableProtocol: Identifiable {
     var date: Double { get set }
     var isNight: Bool { get set }
     var title: String { get set }
-    var description: String { get set }
+    var weatherDescription: String { get set }
     var icon: String { get set }
     var temp: Double? { get set }
     var feelsLike: Double? { get set }

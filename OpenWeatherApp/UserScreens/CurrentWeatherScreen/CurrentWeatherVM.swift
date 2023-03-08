@@ -40,47 +40,19 @@ class CurrentWeatherVM: BaseWeatherSearchVM {
     }
 
     override func runWeatherFunctionByLatLon() {
-        queryTask = Task {
-            let query = query.getLatLongFromQuery()
-            do {
-                let response = try await OpenWeatherService.shared.fetchCurrentWeather(
-                    lat: query.lat, lon: query.lon, units: units)
-                await setForecastsFrom(response)
-                UserDefaultsService.shared.saveQuery(self.query)
-                addCurrentWeather()
-            } catch let error {
-                print(error)
-            }
+        Task {
+            try await setForecastsFrom(weather: CurrentWeatherRepository.shared.getCurrentWeather(by: query))
+            UserDefaultsService.shared.saveQuery(self.query)
+            addCurrentWeather()
         }
     }
 
     override func runWeatherFunctionByZipCountryCodes() {
-        queryTask = Task {
-            let query = query.getZipCountryCodesFromQuery()
-            do {
-                let response = try await OpenWeatherService.shared.fetchCurrentWeather(
-                    zipCode: query.zip, countryCode: query.country, units: units)
-                await setForecastsFrom(response)
-                UserDefaultsService.shared.saveQuery(self.query)
-                addCurrentWeather()
-            } catch let error {
-                print(error)
-            }
-        }
+        runWeatherFunctionByLatLon()
     }
 
     override func runWeatherFunctionByCity() {
-        queryTask = Task {
-            let city = query.replacingOccurrences(of: ", ", with: "")
-            do {
-                let response = try await OpenWeatherService.shared.fetchCurrentWeather(city: city, units: units)
-                await setForecastsFrom(response)
-                UserDefaultsService.shared.saveQuery(self.query)
-                addCurrentWeather()
-            } catch let error {
-                print(error)
-            }
-        }
+        runWeatherFunctionByLatLon()
     }
 
     private func addCurrentWeather() {

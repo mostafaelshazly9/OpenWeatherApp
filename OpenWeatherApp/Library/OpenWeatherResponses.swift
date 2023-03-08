@@ -51,5 +51,8 @@ struct Sys: Decodable {
 
 // MARK: - Weather
 struct Weather: Decodable {
-    let main, description, icon: String?
+    let main, weatherDescription, icon: String?
+    private enum CodingKeys: String, CodingKey {
+        case main, weatherDescription =  "description", icon
+    }
 }

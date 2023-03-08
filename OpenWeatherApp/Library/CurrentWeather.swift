@@ -14,7 +14,7 @@ struct CurrentWeather: WeatherPresentableProtocol, Identifiable {
     var date: Double
     var isNight = true
     var title: String
-    var description: String
+    var weatherDescription: String
     var icon: String
     var temp: Double?
     var feelsLike: Double?
@@ -23,15 +23,17 @@ struct CurrentWeather: WeatherPresentableProtocol, Identifiable {
         self.date = date
         self.isNight = isNight
         self.title = title
-        self.description = description
+        self.weatherDescription = description
         self.icon = icon
+        self.temp = temp
+        self.feelsLike = feelsLike
     }
 
     init(from response: CurrentWeatherResponse) {
         self.date = response.timeOfForecast
         self.isNight = false
         self.title = response.weather.first?.main ?? ""
-        self.description = response.weather.first?.description ?? ""
+        self.weatherDescription = response.weather.first?.weatherDescription ?? ""
         self.icon = response.weather.first?.icon ?? ""
         self.temp = response.main.temp
         self.feelsLike = response.main.feelsLike

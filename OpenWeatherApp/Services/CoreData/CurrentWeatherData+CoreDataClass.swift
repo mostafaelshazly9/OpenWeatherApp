@@ -15,7 +15,7 @@ public class CurrentWeatherData: NSManagedObject {
         CurrentWeather(date: date,
                        isNight: isNight,
                        title: title ?? "",
-                       description: description,
+                       description: weatherDescription ?? "",
                        icon: icon ?? "",
                        temp: temp,
                        feelsLike: feelsLike)
@@ -32,7 +32,7 @@ public class CurrentWeatherData: NSManagedObject {
         object.icon = currentWeather.icon
         object.isNight = currentWeather.isNight
         object.title = currentWeather.title
-        object.weatherDescription = currentWeather.description
+        object.weatherDescription = currentWeather.weatherDescription 
         try? PersistenceController.shared.container.viewContext.save()
         deleteOldData()
     }
@@ -42,6 +42,7 @@ public class CurrentWeatherData: NSManagedObject {
         let predicate = NSPredicate(format: "query == %@", query)
         let fetchRequest: NSFetchRequest<CurrentWeatherData> = CurrentWeatherData.fetchRequest()
         fetchRequest.predicate = predicate
+        fetchRequest.returnsObjectsAsFaults = false
 
         let context = PersistenceController.shared.container.viewContext
 
@@ -56,6 +57,7 @@ public class CurrentWeatherData: NSManagedObject {
                                               ascending: false)
         let fetchRequest: NSFetchRequest<CurrentWeatherData> = CurrentWeatherData.fetchRequest()
         fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.returnsObjectsAsFaults = false
 
         let context = PersistenceController.shared.container.viewContext
 
@@ -74,6 +76,7 @@ public class CurrentWeatherData: NSManagedObject {
         let predicate = NSPredicate(format: "dateStored < %@", nextDate as NSDate)
         let fetchRequest: NSFetchRequest<CurrentWeatherData> = CurrentWeatherData.fetchRequest()
         fetchRequest.predicate = predicate
+        fetchRequest.returnsObjectsAsFaults = false
 
         let context = PersistenceController.shared.container.viewContext
 
@@ -85,6 +88,7 @@ public class CurrentWeatherData: NSManagedObject {
         let predicate = NSPredicate(format: "query == %@", query)
         let fetchRequest: NSFetchRequest<CurrentWeatherData> = CurrentWeatherData.fetchRequest()
         fetchRequest.predicate = predicate
+        fetchRequest.returnsObjectsAsFaults = false
 
         let context = PersistenceController.shared.container.viewContext
 

@@ -22,7 +22,7 @@ struct ForecastRow: View {
                 VStack {
                     Text(forecast.title)
                     Spacer()
-                    Text(forecast.description)
+                    Text(forecast.weatherDescription)
                 }
                 Spacer()
                 VStack {

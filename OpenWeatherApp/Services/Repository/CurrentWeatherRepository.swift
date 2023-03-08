@@ -9,6 +9,10 @@ import Foundation
 
 class CurrentWeatherRepository {
 
+    static let shared = CurrentWeatherRepository()
+
+    private init() {}
+
     func getCurrentWeather(by query: String) async throws -> CurrentWeather {
         if let currentWeather = CurrentWeatherData.getCurrentWeatherData(for: query) {
             return currentWeather.createCurrentWeather()
@@ -33,7 +37,7 @@ class CurrentWeatherRepository {
         }
     }
 
-    func runWeatherFunctionByLatLon(query: String) async throws -> CurrentWeather {
+    private func runWeatherFunctionByLatLon(query: String) async throws -> CurrentWeather {
         try await withCheckedThrowingContinuation { continuation in
             Task {
                 let query = query.getLatLongFromQuery()
@@ -52,7 +56,7 @@ class CurrentWeatherRepository {
         }
     }
 
-    func runWeatherFunctionByZipCountryCodes(query: String) async throws -> CurrentWeather {
+    private func runWeatherFunctionByZipCountryCodes(query: String) async throws -> CurrentWeather {
         try await withCheckedThrowingContinuation { continuation in
             Task {
                 let query = query.getZipCountryCodesFromQuery()
@@ -71,7 +75,7 @@ class CurrentWeatherRepository {
         }
     }
 
-    func runWeatherFunctionByCity(query: String) async throws -> CurrentWeather {
+    private func runWeatherFunctionByCity(query: String) async throws -> CurrentWeather {
         try await withCheckedThrowingContinuation { continuation in
             Task {
                 let city = query.replacingOccurrences(of: ", ", with: "")
@@ -79,8 +83,9 @@ class CurrentWeatherRepository {
                     let response = try await OpenWeatherService.shared.fetchCurrentWeather(city: city, units: UserDefaultsService.shared.retrieveUnit())
                     if let weather = [CurrentWeather(from: response)].first {
                         continuation.resume(returning: weather)
+                    } else {
+                        continuation.resume(throwing: OpenWeatherService.OpenWeatherError.unknownError)
                     }
-                    continuation.resume(throwing: OpenWeatherService.OpenWeatherError.unknownError)
                 } catch let error {
                     print(error)
                     continuation.resume(throwing: OpenWeatherService.OpenWeatherError.decodingError)
