@@ -41,31 +41,4 @@ class ForecastVM: BaseWeatherSearchVM {
             }
         }
     }
-
-    override func runWeatherFunctionByZipCountryCodes() {
-        queryTask = Task {
-            let query = query.getZipCountryCodesFromQuery()
-            do {
-                let response = try await OpenWeatherService.shared.fetchWeatherForecast(zipCode: query.zip,
-                                                                                 countryCode: query.country)
-                await setForecastsFrom(response)
-                UserDefaultsService.shared.saveQuery(self.query)
-            } catch let error {
-                print(error)
-            }
-        }
-    }
-
-    override func runWeatherFunctionByCity() {
-        queryTask = Task {
-            let city = query.replacingOccurrences(of: ", ", with: "")
-            do {
-                let response = try await OpenWeatherService.shared.fetchWeatherForecast(city: city)
-                await setForecastsFrom(response)
-                UserDefaultsService.shared.saveQuery(self.query)
-            } catch let error {
-                print(error)
-            }
-        }
-    }
 }

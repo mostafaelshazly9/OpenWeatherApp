@@ -32,7 +32,6 @@ class CurrentWeatherRepository {
             }
             return weather
         } catch let error {
-            print(error)
             throw error
         }
     }
@@ -49,8 +48,7 @@ class CurrentWeatherRepository {
                     }
                     continuation.resume(throwing: OpenWeatherService.OpenWeatherError.unknownError)
                 } catch let error {
-                    print(error)
-                    continuation.resume(throwing: OpenWeatherService.OpenWeatherError.decodingError)
+                    continuation.resume(throwing: error)
                 }
             }
         }
@@ -62,14 +60,14 @@ class CurrentWeatherRepository {
                 let query = query.getZipCountryCodesFromQuery()
                 do {
                     let response = try await OpenWeatherService.shared.fetchCurrentWeather(
-                        zipCode: query.zip, countryCode: query.country, units: UserDefaultsService.shared.retrieveUnit())
+                        zipCode: query.zip, countryCode: query.country,
+                        units: UserDefaultsService.shared.retrieveUnit())
                     if let weather = [CurrentWeather(from: response)].first {
                         continuation.resume(returning: weather)
                     }
                     continuation.resume(throwing: OpenWeatherService.OpenWeatherError.unknownError)
                 } catch let error {
-                    print(error)
-                    continuation.resume(throwing: OpenWeatherService.OpenWeatherError.decodingError)
+                    continuation.resume(throwing: error)
                 }
             }
         }
@@ -80,15 +78,15 @@ class CurrentWeatherRepository {
             Task {
                 let city = query.replacingOccurrences(of: ", ", with: "")
                 do {
-                    let response = try await OpenWeatherService.shared.fetchCurrentWeather(city: city, units: UserDefaultsService.shared.retrieveUnit())
+                    let response = try await OpenWeatherService.shared.fetchCurrentWeather(
+                        city: city, units: UserDefaultsService.shared.retrieveUnit())
                     if let weather = [CurrentWeather(from: response)].first {
                         continuation.resume(returning: weather)
                     } else {
                         continuation.resume(throwing: OpenWeatherService.OpenWeatherError.unknownError)
                     }
                 } catch let error {
-                    print(error)
-                    continuation.resume(throwing: OpenWeatherService.OpenWeatherError.decodingError)
+                    continuation.resume(throwing: error)
                 }
             }
         }

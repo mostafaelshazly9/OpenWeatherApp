@@ -32,7 +32,7 @@ public class CurrentWeatherData: NSManagedObject {
         object.icon = currentWeather.icon
         object.isNight = currentWeather.isNight
         object.title = currentWeather.title
-        object.weatherDescription = currentWeather.weatherDescription 
+        object.weatherDescription = currentWeather.weatherDescription
         try? PersistenceController.shared.container.viewContext.save()
         deleteOldData()
     }

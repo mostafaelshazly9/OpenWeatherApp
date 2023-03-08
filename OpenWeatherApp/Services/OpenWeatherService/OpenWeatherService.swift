@@ -88,11 +88,8 @@ class OpenWeatherService {
         }
 
         let (data, response) = try await URLSession.shared.data(from: url)
-        print("Response:", response)
-        print(String(decoding: data, as: UTF8.self))
 
         let result = try JSONDecoder().decode(WeatherForecastResponse.self, from: data)
-        print(result)
         return result
     }
 
@@ -102,11 +99,8 @@ class OpenWeatherService {
         }
 
         let (data, response) = try await URLSession.shared.data(from: url)
-        print("Response:", response)
-        print(String(decoding: data, as: UTF8.self))
 
         let result = try JSONDecoder().decode(CurrentWeatherResponse.self, from: data)
-        print(result)
         return result
     }
 }

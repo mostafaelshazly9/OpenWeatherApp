@@ -56,7 +56,6 @@ struct WeatherQueryField: View {
                isPresented: $isShowingInfoPopup,
                actions: {
             Button(R.string.localizable.ok(), role: .cancel, action: {
-                print("Tapped OK")
             })
         }, message: {
             Text(R.string.localizable.searchInstructionsMessage())
@@ -67,6 +66,6 @@ struct WeatherQueryField: View {
 struct WeatherQueryField_Previews: PreviewProvider {
     @State static var query = ""
     static var previews: some View {
-        WeatherQueryField(didTapMapPinIcon: { print("didTapMapPinIcon") }, query: $query)
+        WeatherQueryField(didTapMapPinIcon: {  }, query: $query)
     }
 }

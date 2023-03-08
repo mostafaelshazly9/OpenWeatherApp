@@ -27,6 +27,6 @@ extension CurrentWeatherData {
 
 }
 
-extension CurrentWeatherData : Identifiable {
+extension CurrentWeatherData: Identifiable {
 
 }
