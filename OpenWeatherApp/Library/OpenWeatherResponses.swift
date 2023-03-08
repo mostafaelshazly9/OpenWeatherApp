@@ -7,6 +7,16 @@
 
 import Foundation
 
+struct CurrentWeatherResponse: Decodable {
+    let weather: [Weather]
+    let main: Main
+    let timeOfForecast: Double
+
+    private enum CodingKeys: String, CodingKey {
+        case timeOfForecast = "dt", main, weather
+    }
+}
+
 struct WeatherForecastResponse: Decodable {
     let cnt: Int
     let list: [WeatherForecastResponseList]

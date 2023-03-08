@@ -14,9 +14,9 @@ protocol WeatherSearchVMProtocol: AnyObject, ObservableObject {
     var queryPublished: Published<String> { get }
     var queryPublisher: Published<String>.Publisher { get }
 
-    var forecasts: [any WeatherPresentableProtocol] { get set }
-    var forecastsPublished: Published<[any WeatherPresentableProtocol]> { get }
-    var forecastsPublisher: Published<[any WeatherPresentableProtocol]>.Publisher { get }
+    var results: [any WeatherPresentableProtocol] { get set }
+    var resultsPublished: Published<[any WeatherPresentableProtocol]> { get }
+    var resultsPublisher: Published<[any WeatherPresentableProtocol]>.Publisher { get }
 
     var previousQueries: [String] { get set }
     var previousQueriesPublished: Published<[String]> { get }
@@ -49,9 +49,9 @@ class BaseWeatherSearchVM: WeatherSearchVMProtocol {
     var queryPublished: Published<String> { _query }
     var queryPublisher: Published<String>.Publisher { $query }
 
-    @Published var forecasts: [any WeatherPresentableProtocol] = []
-    var forecastsPublished: Published<[any WeatherPresentableProtocol]> { _forecasts }
-    var forecastsPublisher: Published<[any WeatherPresentableProtocol]>.Publisher { $forecasts }
+    @Published var results: [any WeatherPresentableProtocol] = []
+    var resultsPublished: Published<[any WeatherPresentableProtocol]> { _results }
+    var resultsPublisher: Published<[any WeatherPresentableProtocol]>.Publisher { $results }
 
     @Published var previousQueries: [String] = []
     var previousQueriesPublished: Published<[String]> { _previousQueries }
@@ -107,7 +107,17 @@ class BaseWeatherSearchVM: WeatherSearchVMProtocol {
     }
 
     func searchForQuery() {
-        fatalError("Must override in subclasses")
+        Task {
+            await resetResults()
+
+            if isValidLatLong() {
+                runWeatherFunctionByLatLon()
+            } else if isValidZipCountryCodes() {
+                runWeatherFunctionByZipCountryCodes()
+            } else {
+                runWeatherFunctionByCity()
+            }
+        }
     }
 
     func runWeatherFunctionByLatLon() {
@@ -129,12 +139,12 @@ class BaseWeatherSearchVM: WeatherSearchVMProtocol {
 
     @MainActor
     func setForecastsFrom(_ response: WeatherForecastResponse) {
-        forecasts = response.list.compactMap { Forecast(from: $0) }
+        results = response.list.compactMap { Forecast(from: $0) }
     }
 
     @MainActor
-    func resetForecasts() {
-        forecasts = []
+    func resetResults() {
+        results = []
     }
 
     func cancelQueryTask() {

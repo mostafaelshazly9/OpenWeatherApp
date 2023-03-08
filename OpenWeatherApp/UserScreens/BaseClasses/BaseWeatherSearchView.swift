@@ -37,7 +37,7 @@ struct BaseWeatherSearchView<ViewModel, Content>: View where ViewModel: WeatherS
                                             didSelectQuery: viewModel.didSelectQuery(_:))
                 Spacer()
             } else {
-                if !viewModel.forecasts.isEmpty {
+                if !viewModel.results.isEmpty {
                     lower()
                 }
             }

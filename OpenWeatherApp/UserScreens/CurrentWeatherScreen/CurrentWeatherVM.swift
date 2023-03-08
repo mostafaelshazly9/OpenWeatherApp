@@ -1,32 +1,23 @@
 //
-//  ForecastVM.swift
+//  CurrentWeatherVM.swift
 //  OpenWeatherApp
 //
-//  Created by Mostafa Elshazly on 07/03/2023.
+//  Created by Mostafa Elshazly on 08/03/2023.
 //
 
 import Foundation
 
-class ForecastVM: BaseWeatherSearchVM {
-
-    func viewDidAppear() {
-        if let lastQuery = loadPreviousQueries().first {
-            Task {
-                await setQuery(to: lastQuery)
-                searchForQuery()
-            }
-        }
-    }
+class CurrentWeatherVM: BaseWeatherSearchVM {
 
     override func loadPreviousQueries() -> [String] {
-        UserDefaultsService.shared.retrieveLast5ForecastQueries().reversed()
+        UserDefaultsService.shared.retrieveLast5ForecastQueries().reversed() // TODO: Update
     }
 
     override func runWeatherFunctionByLatLon() {
         queryTask = Task {
             let query = getLatLongFromQuery()
             do {
-                let response = try await OpenWeatherService.shared.fetchWeatherForecast(lat: query.lat, lon: query.lon)
+                let response = try await OpenWeatherService.shared.fetchWeatherForecast(lat: query.lat, lon: query.lon)  // TODO: Update
                 await setForecastsFrom(response)
                 UserDefaultsService.shared.saveForecastQuery(self.query)
             } catch let error {
@@ -40,7 +31,7 @@ class ForecastVM: BaseWeatherSearchVM {
             let query = getZipCountryCodesFromQuery()
             do {
                 let response = try await OpenWeatherService.shared.fetchWeatherForecast(zipCode: query.zip,
-                                                                                 countryCode: query.country)
+                                                                                 countryCode: query.country)  // TODO: Update
                 await setForecastsFrom(response)
                 UserDefaultsService.shared.saveForecastQuery(self.query)
             } catch let error {
@@ -53,7 +44,7 @@ class ForecastVM: BaseWeatherSearchVM {
         queryTask = Task {
             let city = query.replacingOccurrences(of: ", ", with: "")
             do {
-                let response = try await OpenWeatherService.shared.fetchWeatherForecast(city: city)
+                let response = try await OpenWeatherService.shared.fetchWeatherForecast(city: city) // TODO: Update
                 await setForecastsFrom(response)
                 UserDefaultsService.shared.saveForecastQuery(self.query)
             } catch let error {
