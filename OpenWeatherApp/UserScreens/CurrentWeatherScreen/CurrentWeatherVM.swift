@@ -9,6 +9,19 @@ import Foundation
 
 class CurrentWeatherVM: BaseWeatherSearchVM {
 
+    private var units = "metric"
+    var displayUnits = "°C"
+
+    func didTapFahrenheit() {
+        units = "imperial"
+        displayUnits = "°F"
+    }
+
+    func didTapCelsius() {
+        units = "metric"
+        displayUnits = "°C"
+    }
+
     override func loadPreviousQueries() -> [String] {
         UserDefaultsService.shared.retrieveLastNQueries(10).reversed()
     }
@@ -17,7 +30,9 @@ class CurrentWeatherVM: BaseWeatherSearchVM {
         queryTask = Task {
             let query = getLatLongFromQuery()
             do {
-                let response = try await OpenWeatherService.shared.fetchCurrentWeather(lat: query.lat, lon: query.lon)
+                let response = try await OpenWeatherService.shared.fetchCurrentWeather(lat: query.lat,
+                                                                                       lon: query.lon,
+                                                                                       units: units)
                 await setForecastsFrom(response)
                 UserDefaultsService.shared.saveQuery(self.query)
             } catch let error {
@@ -31,7 +46,8 @@ class CurrentWeatherVM: BaseWeatherSearchVM {
             let query = getZipCountryCodesFromQuery()
             do {
                 let response = try await OpenWeatherService.shared.fetchCurrentWeather(zipCode: query.zip,
-                                                                                 countryCode: query.country)
+                                                                                 countryCode: query.country,
+                                                                                       units: units)
                 await setForecastsFrom(response)
                 UserDefaultsService.shared.saveQuery(self.query)
             } catch let error {
@@ -44,7 +60,7 @@ class CurrentWeatherVM: BaseWeatherSearchVM {
         queryTask = Task {
             let city = query.replacingOccurrences(of: ", ", with: "")
             do {
-                let response = try await OpenWeatherService.shared.fetchCurrentWeather(city: city)
+                let response = try await OpenWeatherService.shared.fetchCurrentWeather(city: city, units: units)
                 await setForecastsFrom(response)
                 UserDefaultsService.shared.saveQuery(self.query)
             } catch let error {

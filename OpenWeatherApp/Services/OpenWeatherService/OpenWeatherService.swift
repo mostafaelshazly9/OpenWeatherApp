@@ -13,6 +13,7 @@ class OpenWeatherService {
     ///  shared on github. However, for the purposes of this interview, it is included here so that
     ///  it is easier to run without having to do any extra work on the reviewer's side
     private let apiKey = "eb12396ff51e38c197930742348aaa6f"
+    private let host = "https://api.openweathermap.org/data/2.5"
 
     static let shared = OpenWeatherService()
 
@@ -28,7 +29,7 @@ class OpenWeatherService {
     func fetchWeatherForecast(lat: String, lon: String) async throws -> WeatherForecastResponse {
         guard !lat.isEmpty && !lon.isEmpty else { throw OpenWeatherError.missingData }
 
-        let urlString = "https://api.openweathermap.org/data/2.5/forecast?lat=\(lat)&lon=\(lon)&appid=\(apiKey)"
+        let urlString = "\(host)/forecast?lat=\(lat)&lon=\(lon)&appid=\(apiKey)"
 
         return try await retrieveWeatherForecast(from: urlString)
     }
@@ -36,7 +37,7 @@ class OpenWeatherService {
     func fetchWeatherForecast(city: String) async throws -> WeatherForecastResponse {
         guard !city.isEmpty else { throw OpenWeatherError.missingData }
 
-        let urlString = "https://api.openweathermap.org/data/2.5/forecast?q=\(city)&appid=\(apiKey)"
+        let urlString = "\(host)/forecast?q=\(city)&appid=\(apiKey)"
 
         return try await retrieveWeatherForecast(from: urlString)
     }
@@ -44,33 +45,35 @@ class OpenWeatherService {
     func fetchWeatherForecast(zipCode: String, countryCode: String) async throws -> WeatherForecastResponse {
         guard !zipCode.isEmpty && !countryCode.isEmpty else { throw OpenWeatherError.missingData }
 
-        let urlString = "https://api.openweathermap.org/data/2.5/forecast?zip=\(zipCode),\(countryCode)&appid=\(apiKey)"
+        let urlString = "\(host)/forecast?zip=\(zipCode),\(countryCode)&appid=\(apiKey)"
 
         return try await retrieveWeatherForecast(from: urlString)
     }
 
     // MARK: Current Weather
 
-    func fetchCurrentWeather(lat: String, lon: String) async throws -> CurrentWeatherResponse {
+    func fetchCurrentWeather(lat: String, lon: String, units: String) async throws -> CurrentWeatherResponse {
         guard !lat.isEmpty && !lon.isEmpty else { throw OpenWeatherError.missingData }
 
-        let urlString = "https://api.openweathermap.org/data/2.5/weather?lat=\(lat)&lon=\(lon)&appid=\(apiKey)"
+        let urlString = "\(host)/weather?lat=\(lat)&lon=\(lon)&units=\(units)&appid=\(apiKey)"
 
         return try await retrieveCurrentWeather(from: urlString)
     }
 
-    func fetchCurrentWeather(city: String) async throws -> CurrentWeatherResponse {
+    func fetchCurrentWeather(city: String, units: String) async throws -> CurrentWeatherResponse {
         guard !city.isEmpty else { throw OpenWeatherError.missingData }
 
-        let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city)&appid=\(apiKey)"
+        let urlString = "\(host)/weather?q=\(city)&units=\(units)&appid=\(apiKey)"
 
         return try await retrieveCurrentWeather(from: urlString)
     }
 
-    func fetchCurrentWeather(zipCode: String, countryCode: String) async throws -> CurrentWeatherResponse {
+    func fetchCurrentWeather(zipCode: String,
+                             countryCode: String,
+                             units: String) async throws -> CurrentWeatherResponse {
         guard !zipCode.isEmpty && !countryCode.isEmpty else { throw OpenWeatherError.missingData }
 
-        let urlString = "https://api.openweathermap.org/data/2.5/weather?zip=\(zipCode),\(countryCode)&appid=\(apiKey)"
+        let urlString = "\(host)/weather?zip=\(zipCode),\(countryCode)&units=\(units)&appid=\(apiKey)"
 
         return try await retrieveCurrentWeather(from: urlString)
     }

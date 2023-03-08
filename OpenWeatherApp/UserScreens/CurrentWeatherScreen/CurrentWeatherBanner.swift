@@ -10,6 +10,7 @@ import SwiftUI
 struct CurrentWeatherBanner: View {
 
     var currentWeather: CurrentWeather
+    var unit: String
 
     var body: some View {
         VStack {
@@ -23,12 +24,12 @@ struct CurrentWeatherBanner: View {
             Spacer()
             HStack {
                 Text("Temperature:")
-                Text(String(currentWeather.temp ?? 0))
+                Text("\(String(format: "%.2f", currentWeather.temp ?? 0))\(unit)")
             }
             Spacer()
             HStack {
                 Text("Feels like:")
-                Text(String(currentWeather.feelsLike ?? 0))
+                Text("\(String(format: "%.2f", currentWeather.feelsLike ?? 0))\(unit)")
             }
         }
         .frame(height: 200)
@@ -43,6 +44,6 @@ struct CurrentWeatherBanner_Previews: PreviewProvider {
                                                             isNight: true,
                                                             title: "Clouds",
                                                             description: "scattered clouds",
-                                                            icon: "03d"))
+                                                            icon: "03d"), unit: "°C")
     }
 }

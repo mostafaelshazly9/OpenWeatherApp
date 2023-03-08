@@ -13,11 +13,7 @@ struct CurrentWeatherView: View {
 
     var body: some View {
         BaseWeatherSearchView<CurrentWeatherVM, AnyView>(viewModel: viewModel, upper: {
-            if !viewModel.results.isEmpty,
-               let currentWeather = viewModel.results
-                .compactMap({ $0 as? CurrentWeather }).first {
-                AnyView(CurrentWeatherBanner(currentWeather: currentWeather))
-            }
+            AnyView(upperView)
         })
     }
 }
@@ -25,5 +21,38 @@ struct CurrentWeatherView: View {
 struct CurrentWeatherView_Previews: PreviewProvider {
     static var previews: some View {
         CurrentWeatherView()
+    }
+}
+
+// MARK: UI Components
+
+extension CurrentWeatherView {
+
+    var upperView: some View {
+        VStack {
+            if !viewModel.results.isEmpty,
+               let currentWeather = viewModel.results
+                .compactMap({ $0 as? CurrentWeather }).first {
+                CurrentWeatherBanner(currentWeather: currentWeather, unit: viewModel.displayUnits)
+            }
+            unitsButtons
+        }
+    }
+    var unitsButtons: some View {
+        HStack {
+            Button {
+                viewModel.didTapCelsius()
+            } label: {
+                Text("Celsius")
+            }
+            .modifier(WeatherSearchButtonStyle())
+
+            Button {
+                viewModel.didTapFahrenheit()
+            } label: {
+                Text("Fahrenheit")
+            }
+            .modifier(WeatherSearchButtonStyle())
+        }
     }
 }
