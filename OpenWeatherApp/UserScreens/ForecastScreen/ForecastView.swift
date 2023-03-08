@@ -44,11 +44,28 @@ struct ForecastView_Previews: PreviewProvider {
 extension ForecastView {
 
     var forecasts: some View {
-        List {
-            ForEach(viewModel.results.compactMap { $0 as? Forecast }) { forecast in
-                ForecastRow(forecast: forecast)
+        VStack {
+            HStack {
+                Button(action: {
+                    viewModel.didTapFilter24h()
+                }, label: {
+                    Text("Filter 24h")
+                })
+                .modifier(WeatherSearchButtonStyle())
+
+                Button(action: {
+                    viewModel.didTapFilter48h()
+                }, label: {
+                    Text("Filter 48h")
+                })
+                .modifier(WeatherSearchButtonStyle())
             }
+            List {
+                ForEach(viewModel.results.compactMap { $0 as? Forecast }) { forecast in
+                    ForecastRow(forecast: forecast)
+                }
+            }
+            .scrollContentBackground(.hidden)
         }
-        .scrollContentBackground(.hidden)
     }
 }

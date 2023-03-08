@@ -61,6 +61,9 @@ class BaseWeatherSearchVM: WeatherSearchVMProtocol {
     var isShowingOldQueriesPublished: Published<Bool> { _isShowingOldQueries }
     var isShowingOldQueriesPublisher: Published<Bool>.Publisher { $isShowingOldQueries }
 
+    var resultsFilterMethod: ((any WeatherPresentableProtocol) -> Bool) = { _ in true }
+    private var weatherForecastResponse: WeatherForecastResponse?
+
     var queryTask: Task<(), Never>?
     private let manager = CLLocationManager()
     private var delegate: CoreLocationDelegate?
@@ -129,6 +132,14 @@ class BaseWeatherSearchVM: WeatherSearchVMProtocol {
         }
     }
 
+    @MainActor
+    func applyFilterFunction(_ function: @escaping ((any WeatherPresentableProtocol) -> Bool) = { _ in true }) {
+        if let response = weatherForecastResponse?.list.compactMap({ Forecast(from: $0) }) {
+            results = response.filter(function)
+        }
+        resultsFilterMethod = function
+    }
+
     func runWeatherFunctionByLatLon() {
         fatalError("Must override in subclasses")
     }
@@ -148,7 +159,8 @@ class BaseWeatherSearchVM: WeatherSearchVMProtocol {
 
     @MainActor
     func setForecastsFrom(_ response: WeatherForecastResponse) {
-        results = response.list.compactMap { Forecast(from: $0) }
+        weatherForecastResponse = response
+        results = response.list.compactMap { Forecast(from: $0) }.filter(resultsFilterMethod)
     }
 
     @MainActor
@@ -159,6 +171,7 @@ class BaseWeatherSearchVM: WeatherSearchVMProtocol {
     @MainActor
     func resetResults() {
         results = []
+        applyFilterFunction()
     }
 
     func cancelQueryTask() {

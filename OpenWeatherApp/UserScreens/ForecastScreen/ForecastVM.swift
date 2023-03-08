@@ -13,6 +13,22 @@ class ForecastVM: BaseWeatherSearchVM {
         UserDefaultsService.shared.retrieveLastNQueries(5).reversed()
     }
 
+    @MainActor
+    func didTapFilter24h() {
+        applyFilterFunction { forecast in
+            guard let hour = (Date(timeIntervalSince1970: forecast.date) - Date()).hour else { return false }
+            return ( hour < 24)
+        }
+    }
+
+    @MainActor
+    func didTapFilter48h() {
+        applyFilterFunction { forecast in
+            guard let hour = (Date(timeIntervalSince1970: forecast.date) - Date()).hour else { return false }
+            return ( hour < 48)
+        }
+    }
+
     override func runWeatherFunctionByLatLon() {
         queryTask = Task {
             let query = getLatLongFromQuery()
